@@ -1,0 +1,66 @@
+---
+title: 'Initialize'
+subtitle: 'How to initialize chatty sdk'
+---
+
+## What for initialize
+
+To use sdk properly, need to initialize two things as below
+
+- API key generated at dashboard
+- Register user's id and name as a member to let sdk know who attend chat
+
+
+## Where to initialize
+- Place where can specify the user identification during application booting up
+- And after member signin or login
+
+
+<InfoBlock type="note">
+- Even if init function is called multiple time, the member is not registered as a duplicate (member is always unique)
+- If member signout and signin again, the member id should be different with previous member id. especially, in case of third party oauth login, don't use provider's id as member id
+</InfoBlock>
+
+
+
+file: App.js
+```javascript
+import Chatty from 'chatty-cloud';
+
+
+// When identifier of user is specific, call init function
+// Ex) 1. during application bootup process, 2. after new user join or login
+
+if (isLoggedIn) {
+  await Chatty.init({
+    apiKey: <API KEY>,                // API Key of your app that created in dashboard 
+    member: {
+      id: <MEMBER ID>,                // mandatory  (ex: user.id)
+      name: <MEMBER NAME>,            // mandatory  (ex: user.name)
+      avatar: <MEMBER AVATAR URL>,    // optional   (ex: user.avatar)
+      language: <MEMBER LANGUAGE>,    // optional   (ex: 'en')
+      country: <MEMBER COUNTRY>,      // optional   (ex: 'US')
+      deviceToken: <FCM DEVICE TOKEN> // optional   
+    }
+  });
+}
+```
+
+<InfoBlock type="warning">
+  Please manage API Key securely.
+</InfoBlock>
+
+
+
+## Need help?
+
+Get help from [ChattyCloud's support team](https://www.chatty-cloud.com/support), or join our [GitHub Discussion board](https://github.com/chatty-cloud/beta/discussions) to see how others are using ChattyCloud.
+
+<NextBlock
+  steps={[
+    {
+      text: 'Peer to Peer Chat',
+      link: '/getting-started/p2p',
+    },
+  ]}
+></NextBlock>

@@ -1,0 +1,73 @@
+---
+title: 'Peer to Peer Chat'
+subtitle: 'How to start chat with peer member id'
+---
+
+## Chatty Component
+
+Let's assume that user want to chat with touching chat icon button at other person's profile screen.
+
+If init function is completed with success each other, both of them are ready to join chat.
+
+Then as below, navigate to following Chat.js screen with 'with' param that indicates peer member id.
+
+This example javascript with react
+
+```javascript
+// Chat.js file that you generated
+
+import Chatty from 'chatty-cloud-js';
+
+const Chat = (props) => {
+  return (
+    <Chatty
+      with={props.route.params.with}                          // assign peer member id which want to chat with to 'with' param
+      headerLeftOnPress={() => props.navigation.goBack()}     // register callback function for returning back to previous screen 
+    />
+  );
+};
+
+export default Chat;
+
+
+```
+
+Congratulations!  Now you can send messages and receive mesages with chatty default ui components
+Is it's design not satisfied with you? Don't worry about it. You can customize it fully.
+First of all, look into available parameter list of Chatty React native element.
+
+
+## Chatty Props
+
+### with
+the peer member id to want to chat
+- Type: string
+- Default: undefined
+
+### at
+chat id to enter existing chat
+- Type: string
+- Default: undefined
+
+## Chatty Callback
+
+### headerLeftOnPress
+onPress callback of left component in Chatty Header
+- Type: string
+- Default: undefined
+
+
+
+
+## Need help?
+
+Get help from [ChattyCloud's support team](https://www.chatty-cloud.com/support), or join our [GitHub Discussion board](https://github.com/chatty-cloud/beta/discussions) to see how others are using ChattyCloud.
+
+<NextBlock
+  steps={[
+    {
+      text: 'Listing Chats',
+      link: '/getting-started/listing-chats',
+    },
+  ]}
+></NextBlock>
