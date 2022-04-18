@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /v1/
+Sitemap: https://docs.chatty-cloud.com/sitemap.xml
+Host: https://docs.chatty-cloud.com
