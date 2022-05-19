@@ -66,7 +66,7 @@ export default function Navigation() {
           bgColor={buttonBgColor}
           // variant="outline"
           size='sm'
-          onClick={() => window.open('http://dashboard.chatty-cloud.com')}
+          onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
         >
           dashboard
         </Button>
