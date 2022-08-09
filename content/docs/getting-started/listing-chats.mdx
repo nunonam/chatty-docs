@@ -1,13 +1,94 @@
 ---
 title: 'Listing Chats'
-subtitle: 'Create a development or staging environment for your database through branches'
 ---
 
-## Overview
+## 1. How to connect to chatlist socket.
 
-ChattyCloud allows you to list your all chats
+```typescript
+
+React.useEffect(() => {
+  const chattylist = new ChattyList({
+    onChatListConnect: onChatListConnect,
+    onChatListFetch: onChatListFetch,
+    onChatListUpdate: onChatListUpdate
+  });
+
+  chattylist.connect();
+  return () => {
+    chattylist.disconnect();
+  }
+}, []);
+
+```
+
+## 2. How to fetch chatlist
+
+```typescript
+
+React.useEffect(() => {
+  if (chatty && connected) {
+    pullToRefresh && chatty.fetchChatList({ refresh: true, group: props.group });
+  }
+}, [pullToRefresh, connected, chatty]);
 
 
+```
+
+## 3. ChatList socket handlers
+
+### 1). onChatListConnect
+
+```typescript
+const onChatListConnect = (data: ChattyTypes.ChatListConnectResponseType) => {
+  if (data.error) {
+    console.warn('onChatListConnect error', data.error.message);
+    return;
+  }
+
+  setConnected(true);
+}
+```
+
+### 2). onChatListFetch
+
+```typescript
+const onChatListFetch = (data: ChattyTypes.ChatListFetchResponseType) => {
+  if (data.error) {
+    console.warn('onChatListFetch error', data.error.message);
+    return;
+  }
+
+  if (data.refresh) {
+    const messagesMap = new Map(data.chats.map((e) => [e['id'], e]));
+    setChats(messagesMap);
+    setHasNext(data.hasNext);
+    setPullToRefresh(false);
+  } else {
+    setChats((oldChats) => {
+      const chatsMap = new Map(data.chats.map((e) => [e['id'], e]));
+      return new Map([...Array.from(oldChats), ...Array.from(chatsMap)]);
+    });
+    setHasNext(data.hasNext);
+  }
+  setPullToRefresh(false);
+};
+```
+
+### 3). onChatListUpdate
+
+```typescript
+const onChatListUpdate = (data: ChattyTypes.ChatListUpdateResponseType) => {
+  if (data.error) {
+    console.warn('onChatListRefresh error', data.error.message);
+    return;
+  }
+
+  setChats((oldChats) => {
+    const chatMap = new Map([[data['id'], data]]);
+    return new Map([...Array.from(oldChats), ...Array.from(chatMap)]);
+  });
+};
+```
 
 ## Need help?
 

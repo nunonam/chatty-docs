@@ -1,0 +1,323 @@
+---
+title: 'Starting Chat'
+subtitle: 'How to start chat with peer member id'
+---
+
+## 1. Two way of starting Chat
+
+### 1). Start with member id
+In case of starting chat by selecting peer member id (in case of there is no exsiting chat or not being aware of chat id)
+
+Let's assume that user want to chat with touching chat icon button at other person's profile screen.
+
+If init function is completed with success each other, both of them are ready to join chat.
+
+Navigate to following Chat.js screen with 'with' param that indicates peer member id and then follow 2. How to connect to chat socket
+
+### 2). Start at chat id
+In case of strting chat by selecting exsiting chat id
+
+
+
+
+## 2. How to connect to chat socket.
+
+```typescript
+/**
+ * @description
+ * Fist of all, register callback function for chatty events
+ * and then call connect method
+ * 
+ * Payload of connect method
+ * at: chat id when coming from chatlist
+ * with: peer member id. use when selecing member instead of selecting chat
+ * distinctKey: this makes chat unique. it is generated automatically by sdk if undefined, specify null to allow duplicate and can assign your own value
+ * group: value for grouping chatlist 
+ * name: specify chat name
+ * image: specify chat image
+ */
+React.useEffect(() => {
+  const chattychat = new ChattyChat({
+    chattyList: props.chattylist,
+    onChatConnect: onChatConnect,
+    onChatRefresh: onChatRefresh,
+    onMessageSend: onMessageSend,
+    onMessagesFetch: onMessagesFetch,
+    onMessageReceive: onMessageReceive,
+    onMessagesUpdate: onMessagesUpdate,
+  });
+
+  chattychat.connect({
+    at: props.at,
+    with: props.with,
+    distinctKey: props.distinctKey,
+    group: props.group,
+    name: props.name,
+    image: props.image,
+    data: props.data
+  });
+  setChatty(chattychat);
+  return () => {
+    getMissedCount();
+    chattychat.disconnect();
+  }
+}, []);
+
+
+```
+### Chat connect payloads
+
+### - at: (optional) string type
+- Required when starting chat from chatlist
+
+### - with: (optional) string array type
+- Required when starting chat selecting member id without chat id
+- It shoud be array of member id
+
+### - distinctKey: (optional) string type
+- key that make the chat to unique
+- Use your own custom key or use chatty static method generateDistinctKey (ex: Chatty.generateDistinctKey(['member-id-1', 'member-id-2']))
+
+### - group: (optional) string type
+- used for grouping(filtering) chat at chatlist
+
+### - name: (optional) string type
+- chat name
+
+### - image: (optional) string type
+- image url for chat image
+
+### - data: (optional) string or json type
+- Extra data for chat
+- Size can't exceed 2K
+
+
+<InfoBlock type="note">
+- Chat Members can join until maximum 100
+</InfoBlock>
+
+
+## 3. How to fetch messages
+
+```typescript
+/**
+  * @description
+  * when chat is connected, call fetchMessages method
+  * parameter is boolean type. to refresh set to true
+  */
+React.useEffect(() => {
+  connected && pullToRefresh && chatty?.fetchMessages(true);
+}, [pullToRefresh, connected]);
+```
+
+## 4. Chat socket handlers
+
+### 1). onChatConnect
+
+```typescript
+/**
+ * @description define callback function called after chat is connected
+ * @param data chat data when chat connection is success
+ * @param error error data when chat connection is failed
+ * @returns 
+ */
+const onChatConnect = (data: ChattyTypes.ChatConnectResponseType) => {
+  if (data.error) {
+    console.warn('onChatConnect error', data.error.message);
+    setPullToRefresh(false);
+    return;
+  }
+
+  setChat(data);
+  setConnected(true);
+};
+```
+
+### 2). onChatRefresh
+
+```typescript
+/**
+ * @description define callback function called when chat is refreshed (REFRESH_CHAT event). mainly updated when chat member changed
+ * @param data chat data when refreshing chat is success
+ * @param error error data when failed
+ * @returns 
+ */
+const onChatRefresh = (data: ChattyTypes.ChatRefreshResponseType) => {
+  if (data.error) {
+    console.warn('onChatUpdate error', data.error.message);
+    return;
+  }
+  setChat(data);
+}
+
+```
+
+### 3). onMessageSend
+
+```typescript
+/**
+ * @description define callback function called when send message (SEND_MESSAGE event)
+ * @param data message when sending message is success 
+ * @param error  error data when failed
+ * @returns 
+ */
+const onMessageSend = (data: ChattyTypes.MessageSendResponseType) => {
+  if (data.error) {
+    console.warn('onMessageSend error', data.error.message);
+    return;
+  }
+
+  setMessages((oldMessages) => {
+    const messageMap = new Map([[data['id'], data]]);
+    return new Map([...Array.from(oldMessages), ...Array.from(messageMap)]);
+  });
+};
+
+```
+
+### 4). onMessagesFetch
+
+```typescript
+/**
+ * @description define callback function called after fetching recent messages, it is called after fetchMessages method of Chatty class
+ * @param data recent messages when fetching messages is success
+ * @param error error data when fetching messages is failed
+ * @returns 
+ */
+const onMessagesFetch = (data: ChattyTypes.MessagesFetchResponseType) => {
+  if (data.error) {
+    console.warn('onMessagesFetch error', data.error.message);
+    return;
+  }
+  if (data.refresh) {
+    const messagesMap = new Map(data.messages.map((e) => [e['id'], e]));
+    setMessages(messagesMap);
+    setHasNext(data.hasNext);
+    setPullToRefresh(false);
+  } else {
+    setMessages((oldMessages) => {
+      const messagesMap = new Map(data.messages.map((e) => [e['id'], e]));
+      return new Map([...Array.from(oldMessages), ...Array.from(messagesMap)]);
+    });
+    setHasNext(data.hasNext);
+  }
+  // setLoading(false);
+};
+
+```
+
+### 5). onMessageReceive
+
+```typescript
+/**
+ * @description define callback function called when receive new message (NEW_MESSAGE event)
+ * @param data message when receving message is success
+ * @param error error data when failed
+ * @returns 
+ */
+const onMessageReceive = (data: ChattyTypes.MessageReceiveResponseType) => {
+  if (data.error) {
+    console.warn('onMessageReceive error', data.error.message);
+    return;
+  }
+
+  setMessages((oldMessages) => {
+    const messageMap = new Map([[data['id'], data]]);
+    return new Map([...Array.from(messageMap), ...Array.from(oldMessages)]);
+  });
+};
+
+```
+
+### 6). onMessagesUpdate
+
+```typescript
+/**
+ * @description define callback function called when receive UPDATE_MESSAGES event. mainly updated message status i.e readReceipt
+ * @param messages messages updated when success
+ * @param error error data when failed
+ * @returns 
+ */
+const onMessagesUpdate = (data: ChattyTypes.MessagesUpdateResponseType) => {
+  if (data.error) {
+    console.warn('onMessagesUpdate error', data.error.message);
+    return;
+  }
+
+  setMessages((oldMessages) => {
+    const messagesMap = new Map(data.map((e) => [e['id'], e]));
+    return new Map([...Array.from(oldMessages), ...Array.from(messagesMap)]);
+  });
+};
+
+```
+
+
+
+
+## 5. Send text or file message
+
+The result of sending message is confirmed in onMessageSend handlers
+
+sendTextMessage and sendFileMessage are static method of Chatty class, and return temporary message syncronously
+
+```typescript
+/**
+ * @description function to call sendTextMessage method when send text message
+ * @param message text mesage data
+ */
+const sendTextMessage = (message: string) => {
+  const newMessage = chatty?.sendTextMessage(message);
+  if (newMessage) {
+    setMessages((oldMessages) => {
+      const messageMap = new Map([[newMessage['id'], newMessage]]);
+      return new Map([...Array.from(messageMap), ...Array.from(oldMessages)]);
+    });
+    toTop();
+  } else {
+    console.debug('sendTextMessage fail');
+  }
+}
+
+/**
+ * @description function to call sendFileMessage method when send file message
+ * @param message file message data
+ */
+const sendFileMessage = (message: Array<ChattyTypes.FileType>) => {
+  const newMessage = chatty?.sendFileMessage(message);
+
+  if (newMessage) {
+    setMessages((oldMessages) => {
+      const messageMap = new Map([[newMessage['id'], newMessage]]);
+      return new Map([...Array.from(messageMap), ...Array.from(oldMessages)]);
+    });
+    toTop();
+  } else {
+    console.debug('sendFileMessage fail');
+  }
+}
+
+
+```
+
+
+Congratulations!  Now you can send messages and receive mesages with chatty default ui components
+Is it's design not satisfied with you? Don't worry about it. You can customize it fully.
+First of all, look into available parameter list of Chatty React native element.
+
+
+
+
+
+## Need help?
+
+Get help from [ChattyCloud's support team](https://www.chatty-cloud.com/support), or join our [GitHub Discussion board](https://github.com/chatty-cloud/beta/discussions) to see how others are using ChattyCloud.
+
+<NextBlock
+  steps={[
+    {
+      text: 'Listing Chats',
+      link: '/getting-started/listing-chats',
+    },
+  ]}
+></NextBlock>
