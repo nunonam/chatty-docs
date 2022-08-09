@@ -2,6 +2,6 @@
         <?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
           <url><loc>https://undefined/</loc></url>
-          <url><loc>https://undefined/getting-started/introduction</loc></url><url><loc>https://undefined/getting-started/installation</loc></url><url><loc>https://undefined/getting-started/initialize</loc></url><url><loc>https://undefined/getting-started/p2p</loc></url><url><loc>https://undefined/getting-started/listing-chats</loc></url><url><loc>https://undefined/getting-started/push-notifications</loc></url><url><loc>https://undefined/getting-started/group-chat</loc></url><url><loc>https://undefined/getting-started/image-upload</loc></url><url><loc>https://undefined/getting-started/auto-translation</loc></url><url><loc>https://undefined/getting-started/missed-badge-count</loc></url><url><loc>https://undefined/reference/error-code</loc></url>
+          <url><loc>https://undefined/getting-started/introduction</loc></url><url><loc>https://undefined/getting-started/installation</loc></url><url><loc>https://undefined/getting-started/initialize</loc></url><url><loc>https://undefined/getting-started/starting-chat</loc></url><url><loc>https://undefined/getting-started/listing-chats</loc></url><url><loc>https://undefined/getting-started/push-notifications</loc></url><url><loc>https://undefined/reference/error-code</loc></url>
         </urlset>
     
