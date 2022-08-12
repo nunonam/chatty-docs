@@ -1,0 +1,114 @@
+---
+title: 'Static Methods'
+subtitle: 'Chatty class static methods. These are async and non-socket methods '
+---
+
+
+## init()
+
+static method init is for initialize chatty client. it will initialize apiKey and chat member
+
+```typescript
+interface IInitializePayloads {
+  apiKey: string;
+  member: {
+    id: string
+    name: string
+    language: string
+    country: string
+    avatar: string
+    deviceToken: string
+    device: DeviceType | null
+    group: string
+    permission: MemberPermissionType
+    data: any | null
+  };
+}
+
+await Chatty.init({
+  apiKey: string,
+  member: {
+    id: string,
+    name: string
+  }
+});
+```
+
+## exit()
+
+static method exit is for terminate chatty client. 
+when App user sign out, it will destroy apiKey and chat member
+
+```typescript
+await Chatty.exit();
+```
+
+## generateDistinctKey()
+
+this distinctKey is used for making the chat unique
+
+```typescript
+await Chatty.generateDistinctKey(['MemberId-1', 'MemberId-2']);
+
+```
+
+## createChat()
+
+if distinctKey is already exist, then update and return existing chat
+
+```typescript
+await Chatty.createChat();
+
+```
+
+## updateChat()
+
+if distinctKey is already exist, then update and return existing chat
+
+```typescript
+await Chatty.updateChat();
+
+```
+
+## createAdminMessage()
+
+commonly used for user custom system message
+
+When recive system message at api server, send push notification to chat members
+
+When chat socket is connected and received notification, should call fetchMessages to update chat messages
+
+```typescript
+await Chatty.createAdminMessage();
+
+```
+
+## getMissedCount()
+
+commonly used for show badge count on chat button
+
+```typescript
+await Chatty.getMissedCount();
+
+```
+
+## getMembersByGroup()
+
+this is for getting members having same group
+
+```typescript
+await Chatty.getMembersByGroup();
+
+```
+
+
+
+<InfoBlock type='note'>
+  <inlineCode>pscale</inlineCode> can use the MySQL command-line client to quickly open an interactive shell for a
+  database branch. Optional instructions for installing the MySQL client can be found for each platform below.
+</InfoBlock>
+
+
+## Need help?
+
+Get help from [ChattyCloud's support team](https://www.chatty-cloud.com/support), or join our [GitHub Discussion board](https://github.com/chatty-cloud/beta/discussions) to see how others are using ChattyCloud.

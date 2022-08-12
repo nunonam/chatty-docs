@@ -9,7 +9,50 @@ That's it. now you can receive push notifications
 
 ![dashboard-firebase-credentials](/img/docs/dashboard-fcm-credentials.png)
 
-## 2. How to show missed count badge
+<InfoBlock type="warning">
+  If remote message does not received, Check 'deviceToken' of the member is registered or not. It can be confirmed at your Chatty.init() method
+</InfoBlock>
+
+
+## 2. Receiving remote message
+
+```typescript
+
+RemoteMessageType = {
+  title: string,
+  body: string,
+  data: {
+    type: 'CHATTY_NEW_MESSAGE',
+    ChatId: 'ChatId',
+    missedCount: {
+      total: number,
+      group: Array<{name: string, count: number}>
+    },
+  }
+}
+
+React.useEffect(() => {
+  const unsubscribe = messaging().onMessage((message: FirebaseMessagingTypes.RemoteMessage) => {
+    console.debug('Receiving Notification Message:', message);
+
+    const activeScreen = navigation.getCurrentRoute().name;
+    if (activeScreen !== 'Chat') {
+      if (message.notification) {
+        displayNotification({
+          title: message.notification.title,
+          body: message.notification.body,
+          data: message.data,
+        });
+      }
+    }
+
+    dispatch(setChat({ missedCount: JSON.parse(message.data.missedCount) }));
+    
+  });
+});
+```
+
+## 3. How to show missed count badge
 
 ```typescript
 import Chatty from "chatty-client";

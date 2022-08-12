@@ -1,9 +1,34 @@
 ---
-title: 'Initialize'
-subtitle: 'How to initialize chatty sdk'
+title: 'Install and Initialize'
+subtitle: 'Install chatty-client npm package and prepare cloud dashboard and How to initialize chatty sdk'
 ---
 
-## 1. What to initialize
+## 1. Client SDK installation
+
+with npm
+```npm
+npm install chatty-client
+```
+
+with yarn
+```yarn
+yarn add chatty-client
+```
+
+
+## 2. Cloud Setup
+
+It's needed to get API key to use sdk at client frontend. To do this, Create new application at [`dashboard`](https://devdashboard.chatty-cloud.com)
+
+If your app is created, goto menu apps and then you can get API key
+
+
+![API key at dashboard app tab](/img/docs/dashboard-apikey.png)
+
+
+## 3. Initialize
+
+### 1). What to initialize
 
 To use chatty-client sdk properly, need to initialize two things as below
 
@@ -11,7 +36,7 @@ To use chatty-client sdk properly, need to initialize two things as below
 - Register user's id and name as a member to let sdk know who attend chat (we call your app's user as 'Member' )
 
 
-## 2. Where to initialize
+### 2). Where to initialize
 - Place where can specify the member identification during application booting up
 - And after member signin or login
 
@@ -22,7 +47,7 @@ To use chatty-client sdk properly, need to initialize two things as below
 </InfoBlock>
 
 
-### Example
+### 3). Example
 
 ```javascript
 
@@ -40,12 +65,12 @@ try {
   await Chatty.init({
     apiKey: CHATTY_API_KEY,     // API Key of your app that created in dashboard 
     member: {
-      id: user.id,              // mandatory
-      name: user.name,          // mandatory
-      avatar: user.avatar,      // optional (url type started with 'https://')  
-      deviceToken: 'xxxxxxxxxx' // optional 
-      language: 'en'            // optional
-      country: 'US'             // optional
+      id: user.id,              // required (string type)
+      name: user.name,          // required (string type)
+      avatar: user.avatar,      // optional (string url type started with 'https://')  
+      deviceToken: 'xxxxxxxxxx' // optional (string type)
+      language: 'en'            // optional (string type)
+      country: 'US'             // optional (string type)
     },
   })
 } catch (err) {

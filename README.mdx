@@ -11,283 +11,100 @@ subtitle: 'Use frontend sdk for javascript and cloud server as a service for soc
 - Start with free and then experience chat implementation on your app in several hours
 
 
+
+
+## Overview
+
+Developing a chat service using socket is not that easy. 
+there are various and complex user scenario in the frontend and developing a backend code needs an experienced software engineer.
+
+These incurs a lot of development cost and time.
+
+npm package `chatty-client`(https://npmjs.com) privides ui components and api to develop chat ui. 
+
+If you are experience react native using javascript or typescript, you can integrate to your exsiting app and test it in several hours
+
+
+
+
+
 ## Features
-- Peer to Peer Chat
-- Listing Chats
-- Push Notifications
-- Group Chat
-- Image Upload
-- Auto Translation
-- Missed Message Count
 
-## Installation
+The followings are key features which Chatty Cloud provides
 
-with npm
-```npm
-npm install chatty-client
-```
+<InfoBlock type="note">
+  You can use all of these features with free until 10K messages
+</InfoBlock>
 
-with yarn
-```yarn
-yarn add chatty-client
-```
-
-## Initialize
-- To use chat, first of all, your apiKey to verify members who uses a chat should be registered.
-- A member of chatty chat means user who uses a chat in your service. 
-- 'id' and 'name' of member should be specified.
-- 'deviceToken' should be return value of getToken function of firebase and is used for push notification of receiving chat messages
-
-```javascript
-
-import Chatty from 'chatty-client';
-
-
-/*
- When identifier of user is specific, call init function
- Ex) 
- 1. during application bootup process, 
- 2. after new user join or login
- */
-
-try {
-  await Chatty.init({
-    apiKey: CHATTY_API_KEY,     // API Key of your app that created in dashboard 
-    member: {
-      id: user.id,              // mandatory
-      name: user.name,          // mandatory
-      avatar: user.avatar,      // optional (url type started with 'https://')  
-      deviceToken: 'xxxxxxxxxx' // optional 
-      language: 'en'            // optional
-      country: 'US'             // optional
-    },
-  })
-} catch (err) {
-  console.error('chatInit error', err);
-}
-
-```
-
-## Start chat with peer member id
-- Step of connecting and start chat
-> 1. register callback function for chatty event
-> 2. call connectChat method
-> 3. call fetchMessages method
-> 4. send text or file message
-- below example is in case of starting with peer member id
-
-```typescript
-
-import Chatty from 'chatty-client';
-
-...
-
-const ChattyChat = (props) => {
-  
-  ...
-
-  /**
-   * @description define callback function called after chat is connected
-   * @param chat chat data when chat connection is success
-   * @param error error data when chat connection is failed
-   * @returns 
-   */
-  const onChatConnect = (chat: ChattyTypes.ChatConnectResponseType, error: ChattyTypes.ErrorResponseType) => {
-    if (error || !chat) {
-      console.warn('onChatConnect error', error);
-      setPullToRefresh(false);
-      return;
-    }
-
-    setChat(chat);
-    setConnected(true);
-  };
-
-  /**
-   * @description define callback function called after fetching recent messages, it is called after fetchMessages method of Chatty class
-   * @param data recent messages when fetching messages is success
-   * @param error error data when fetching messages is failed
-   * @returns 
-   */
-  const onMessagesFetch = (data: ChattyTypes.MessagesFetchResponseType, error: ChattyTypes.ErrorResponseType) => {
-    if (error || !data) {
-      console.warn('onMessagesFetch error', error);
-      return;
-    }
-    if (data.refresh) {
-      const messagesMap = new Map(data.messages.map((e) => [e['id'], e]));
-      setMessages(messagesMap);
-      setHasNext(data.hasNext);
-      setPullToRefresh(false);
-    } else {
-      setMessages((oldMessages) => {
-        const messagesMap = new Map(data.messages.map((e) => [e['id'], e]));
-        return new Map([...Array.from(oldMessages), ...Array.from(messagesMap)]);
-      });
-      setHasNext(data.hasNext);
-    }
-    // setLoading(false);
-  };
-
-  /**
-   * @description define callback function called when receive UPDATE_MESSAGES event. mainly updated message status i.e readReceipt
-   * @param messages messages updated when success
-   * @param error error data when failed
-   * @returns 
-   */
-  const onMessagesUpdate = (messages: ChattyTypes.MessagesUpdateResponseType, error: ChattyTypes.ErrorResponseType) => {
-    if (error || !messages) {
-      console.warn('onMessagesUpdate error', error);
-      return;
-    }
-
-    setMessages((oldMessages) => {
-      const messagesMap = new Map(messages.map((e) => [e['id'], e]));
-      return new Map([...Array.from(oldMessages), ...Array.from(messagesMap)]);
-    });
-
-  };
-
-  /**
-   * @description define callback function called when receive new message (NEW_MESSAGE event)
-   * @param message message when receving message is success
-   * @param error error data when failed
-   * @returns 
-   */
-  const onMessageReceive = (message: ChattyTypes.MessageReceiveResponseType, error: ChattyTypes.ErrorResponseType) => {
-    if (error || !message) {
-      console.warn('onMessageReceive error', error);
-      return;
-    }
-
-    setMessages((oldMessages) => {
-      const messageMap = new Map([[message['id'], message]]);
-      return new Map([...Array.from(messageMap), ...Array.from(oldMessages)]);
-    });
-  };
-
-  /**
-   * @description define callback function called when send message (SEND_MESSAGE event)
-   * @param message message when sending message is success 
-   * @param error  error data when failed
-   * @returns 
-   */
-  const onMessageSend = (message: ChattyTypes.MessageSendResponseType, error: ChattyTypes.ErrorResponseType) => {
-    if (error || !message) {
-      console.warn('onMessageSend error', error);
-      return;
-    }
-
-    setMessages((oldMessages) => {
-      const messageMap = new Map([[message['id'], message]]);
-      return new Map([...Array.from(oldMessages), ...Array.from(messageMap)]);
-    });
-  };
-
-  /**
-   * @description define callback function called when chat is refreshed (REFRESH_CHAT event). mainly updated when chat member changed
-   * @param chat chat data when refreshing chat is success
-   * @param error error data when failed
-   * @returns 
-   */
-  const onChatRefresh = (chat: ChattyTypes.ChatRefreshResponseType, error: ChattyTypes.ErrorResponseType) => {
-    if (error || !chat) {
-      console.warn('onChatUpdate error', error);
-      return;
-    }
-    setChat(chat);
-  }
-
-  /**
-   * @description function to call sendTextMessage method when send text message
-   * @param message text mesage data
-   */
-  const sendTextMessage = (message: string) => {
-    const newMessage = chatty?.sendTextMessage(message);
-    if (newMessage) {
-      setMessages((oldMessages) => {
-        const messageMap = new Map([[newMessage['id'], newMessage]]);
-        return new Map([...Array.from(messageMap), ...Array.from(oldMessages)]);
-      });
-      toTop();
-    } else {
-      console.debug('sendTextMessage fail');
-    }
-  }
-
-  /**
-   * @description function to call sendFileMessage method when send file message
-   * @param message file message data
-   */
-  const sendFileMessage = (message: Array<ChattyTypes.FileType>) => {
-    const newMessage = chatty?.sendFileMessage(message);
-
-    if (newMessage) {
-      setMessages((oldMessages) => {
-        const messageMap = new Map([[newMessage['id'], newMessage]]);
-        return new Map([...Array.from(messageMap), ...Array.from(oldMessages)]);
-      });
-      toTop();
-    } else {
-      console.debug('sendFileMessage fail');
-    }
-  }
-
-  /**
-   * @description
-   * when chat is connected, call fetchMessages method
-   * parameter is boolean type. to refresh set to true
-   */
-  React.useEffect(() => {
-    connected && pullToRefresh && chatty?.fetchMessages(true);
-  }, [pullToRefresh, connected]);
-
-
-  /**
-   * @description
-   * Fist of all, register callback function for chatty events
-   * and then call connectChat method
-   * 
-   * Payload of connectChat method
-   * at: chat id when coming from chatlist
-   * with: peer member id. use when selecing member instead of selecting chat
-   * distinctKey: this makes chat unique. it is generated automatically by sdk if undefined, specify null to allow duplicate and can assign your own value
-   * group: value for grouping chatlist 
-   * name: specify chat name
-   * image: specify chat image
-   */
-  React.useEffect(() => {
-    chatty.onChatConnect(onChatConnect);
-    chatty.onMessagesFetch(onMessagesFetch);
-    chatty.onMessagesUpdate(onMessagesUpdate);
-    chatty.onMessageReceive(onMessageReceive);
-    chatty.onMessageSend(onMessageSend);
-    chatty.onChatRefresh(onChatRefresh);
-    chatty.connectChat({
-      at: props.at,
-      with: props.with,
-      distinctKey: props.distinctKey,
-      group: props.group,
-      name: props.name,
-      image: props.image
-    });
-
-    return () => {
-      chatty.disconnectChat();
-    }
-  }, []);
-
-  ...
-
-  return (
-    // render chat screen
-  );
-}
-```
-
-Congratulations! You're ready to start your first chat app using ChattyCloud.
+- [`Starting Chat`](/getting-started/starting-chat) &mdash; Simply start a chat with peer member id
+- [`Listing Chats`](/getting-started/listing-chats) &mdash; Fetch and manage all of chats which member is joining 
+- [`Push Notifications`](/getting-started/push-notifications) &mdash; Push notifications about chat messages are sent from cloud server using google firebase fcm, Just register firebase credential file in dashboard
+- [`Missed Badge Count`](/getting-started/push-notifications) &mdash; Fetching badge count number for missed message(unread) when entering app
+- Image Upload &mdash; Member can upload multiple image files (deleted after 6 months)
+- Auto Translation &mdash; If auto translation is enabled in dashboard, the messages of different language each other in chat are translated automatically
+- Read Receipts &mdash; Read receipt in chat is shown automatically without code writing
 
 
 
 
+
+## Supported languages
+
+Currently, Only javascript npm package is ready. 
+
+- javascript and typescript are supported.
+- React native library is now preparing.
+- Flutter library is now preparing.
+
+
+
+
+
+## Billing
+
+
+You can start with FREE plan. 
+FREE plan is that can use chatty cloud service with free until 10K chat messages.
+10K messages includes image upload and auto translation.
+But if a number of messages reach the limit, Sending message is restricted unless upgrade to PRODUCTION plan.
+
+PRODUCTION plan is subscription by monthly and price is $99 per month until 100K messages.
+It will be charged as post-paid at excess of 100K messages on PRODUCTION plan and excess cost is $99/100K ( $0.00099/ 1 message)
+
+and image upload and auto translation are charged seperatly on PRODUCTION plan.
+
+- image upload : $39/100K ($0.00039 / file)
+- auto tranlsation : $19/100K ($0.00019 / message)
+
+<InfoBlock type="note">
+  Example of Actual Usage on PRODUCTION plan
+
+  • 250K message per month
+
+  • 110K image file per month
+
+  • 200K tranlsation per month
+
+  Cost
+
+  • subscription : $99
+
+  • excess charging : 150K messages * $0.00099 = $148.5
+
+  • file message charging : 110K files * $0.00039 = $42.9
+
+  • tranlsation charging : 200K translation * $0.00019 = $38
+
+  • Total Due : $328.4
+</InfoBlock>
+
+
+
+
+
+
+
+import Install from './content/docs/getting-started/install-initialize.mdx'
+
+<Install />
 

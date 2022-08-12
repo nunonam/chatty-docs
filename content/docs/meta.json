@@ -6,18 +6,8 @@
       "description": "Tutorial guide of the chatty sdk and cloud",
       "pages": [
         {
-          "route": "introduction",
-          "display": "Introduction",
-          "desc": "features들 소개 push와 관련된 내용들 거의 모든 feature들 소개"
-        },
-        {
-          "route": "installation",
-          "display": "Installation",
-          "desc": "react native lib, sdk lib"
-        },
-        {
-          "route": "initialize",
-          "display": "Initialize",
+          "route": "install-initialize",
+          "display": "Install and Initialize",
           "desc": "bootup과정에서 chat.init을 사용하는 방법 가이드, 소스"
         },
         {
@@ -43,9 +33,9 @@
       "description": "References of ChattyCloud service",
       "pages": [
         {
-          "route": "error-code",
-          "display": "Error Code",
-          "desc": "API call Error response code and meaning"
+          "route": "static-methods",
+          "display": "Static Methods",
+          "desc": "Chatty class static methods"
         }
       ]
     }

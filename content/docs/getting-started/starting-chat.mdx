@@ -14,6 +14,14 @@ If init function is completed with success each other, both of them are ready to
 
 Navigate to following Chat.js screen with 'with' param that indicates peer member id and then follow 2. How to connect to chat socket
 
+- Step of connecting and start chat
+> 1. register callback function for chatty event
+> 2. call connectChat method
+> 3. call fetchMessages method
+> 4. send text or file message
+- below example is in case of starting with peer member id
+
+
 ### 2). Start at chat id
 In case of strting chat by selecting exsiting chat id
 
@@ -75,8 +83,9 @@ React.useEffect(() => {
 - It shoud be array of member id
 
 ### - distinctKey: (optional) string type
-- key that make the chat to unique
-- Use your own custom key or use chatty static method generateDistinctKey (ex: Chatty.generateDistinctKey(['member-id-1', 'member-id-2']))
+- This key makes the chat unique
+- Thus, If same distinctKey is exist, use it. If not, create new chat
+- Use your own custom key or use chatty static method generateDistinctKey and commly MemberIds are used (ex: Chatty.generateDistinctKey(['member-id-1', 'member-id-2']))
 
 ### - group: (optional) string type
 - used for grouping(filtering) chat at chatlist
