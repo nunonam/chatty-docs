@@ -33,7 +33,7 @@ If your app is created, goto menu apps and then you can get API key
 To use chatty-client sdk properly, need to initialize two things as below
 
 - API key generated at dashboard
-- Register user's id and name as a member to let sdk know who attend chat (we call your app's user as 'Member' )
+- User's id and name as a member to let sdk know who attend chat (we call your app's user as 'member' )
 
 
 ### 2). Where to initialize
@@ -42,41 +42,61 @@ To use chatty-client sdk properly, need to initialize two things as below
 
 
 <InfoBlock type="note">
-- Even if init function is called multiple time, the member is not registered as a duplicate (member is always unique)
-- If member signout and signin again, the member id should be different with previous member id. especially, in case of third party oauth login, don't use provider's id as member id
+• Even if init function is called multiple time, the member is not registered as a duplicate (member is always unique)
+
+• If member signout and signin again, the member id should be different with previous member id. especially, in case of third party oauth login, don't use provider's id as member id
 </InfoBlock>
 
 
-### 3). Example
-
+Below code is a part of App.tsx
 ```javascript
+App.tsx
 
 import Chatty from 'chatty-client';
 
+...
 
-/*
- When identifier of user is specific, call init function
- Ex) 
- 1. during application bootup process, 
- 2. after new user join or login
- */
+const App = () => {
+  const [ready, setReady] = React.useState(false);
 
-try {
-  await Chatty.init({
-    apiKey: CHATTY_API_KEY,     // API Key of your app that created in dashboard 
-    member: {
-      id: user.id,              // required (string type)
-      name: user.name,          // required (string type)
-      avatar: user.avatar,      // optional (string url type started with 'https://')  
-      deviceToken: 'xxxxxxxxxx' // optional (string type)
-      language: 'en'            // optional (string type)
-      country: 'US'             // optional (string type)
-    },
-  })
-} catch (err) {
-  console.error('chatInit error', err);
+  React.useEffect(() => {
+    if (!ready) {
+      bootstrap().finally(() => {
+        setReady(true);
+      });
+    }
+  }, []);
+
+  /*
+  When identifier of user is specific, call init function
+  Ex) 
+  1. during application bootup process, 
+  2. after new user join or login
+  */
+
+  if (ready && user) {
+    await Chatty.init({
+      apiKey: CHATTY_API_KEY,     // API Key of your app that created in dashboard 
+      member: {
+        id: user.id,              // required (string type)
+        name: user.name,          // required (string type)
+        avatar: user.avatar,      // optional (string url type started with 'https://')  
+        deviceToken: 'xxxxxxxxxx' // optional (string type)
+        language: 'en'            // optional (string type)
+        country: 'US'             // optional (string type)
+      },
+    })
+  }
+
+  return (
+    <View>
+    /* App Root Component*/
+    </View>
+  );
+
+  ...
+
 }
-
 ```
 <InfoBlock type="warning">
   Please manage API Key securely.
