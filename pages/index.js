@@ -1,14 +1,9 @@
-import { createIcon, Button, Container, Heading, HStack, Stack, Text, Icon, SimpleGrid, VStack, Box, useColorModeValue, theme, Center, Divider } from '@chakra-ui/react'
-import Link from 'next/link'
-import SVG from 'react-inlinesvg'
-import { HiCheckCircle } from 'react-icons/hi';
+import { useColorModeValue } from '@chakra-ui/react'
 import { serialize } from 'next-mdx-remote/serialize'
 import Footer from '../components/Footer'
-// import Icon from '../components/Icon'
 import Layout from '../components/layout'
-import Logo from '../components/Logo'
 import { TitleAndMetaTags } from '../components/TitleAndMetaTags'
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import MDXContent from '../components/MDX.Content';
 import { getIndex } from '../lib/post';
 

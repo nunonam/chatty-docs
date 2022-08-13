@@ -15,6 +15,7 @@ import TableBlock from './MDX.TableBlock'
 import ListBlock from './MDX.ListBlock'
 import PageInfo from './PageInfo'
 import { Box, Text, useColorModeValue } from '@chakra-ui/react'
+import NeedHelpBlock from './NeedHelpBlock'
 
 
 export default function MDXContent({ title, subtitle, banner, body, lastUpdatedOn, slug, category }) {
@@ -36,6 +37,7 @@ export default function MDXContent({ title, subtitle, banner, body, lastUpdatedO
     <Box>
       <TitleBlock title={title} subtitle={subtitle} banner={banner} />
       <MDXRemote {...body} components={components} lazy />
+      <NeedHelpBlock />
       <FeedbackBlock />
       <PageInfo lastUpdatedOn={lastUpdatedOn} slug={slug}></PageInfo>
     </Box>
