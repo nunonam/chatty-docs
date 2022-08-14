@@ -54,15 +54,43 @@ React.useEffect(() => {
 
 ## 3. How to show missed count badge
 
+Below code is a part of ChatButton.tsx
 ```typescript
-import Chatty from "chatty-client";
+ChatButton.tsx
 
-/**
- * @returns {Promise<{total: number, group: Array<{name: string, count: number}>}>}
- */
-async function getMissedCount() {
-  const data = await Chatty.getMissedCount();
-  return data;
+import * as React from 'react';
+import { View, AppState } from 'react-native';
+import Chatty from 'chatty-client';
+
+
+const ChatButton = (props: ChatButtonProps) => {
+  const chat = useChat(); // get from global state (in this example, Reducer is used)
+  
+  const handleAppState = async (newState: string) => {
+    if (newState === 'active') {
+      const missedCount = Chatty.getMissedCount();
+      store.dispatch(setChat({ missedCount: missedCount }));
+    }
+  }
+
+  // call one more time when appstate is foreground from background
+  React.useEffect(() => {
+    const subscription = AppState.addEventListener('change', handleAppState);
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  const handlePress = () => {
+    navigation.navigate('ChatList');
+  }
+
+  return (
+    <View>
+      /* Button UI components*/
+    </View>
+  )
 }
 ```
 

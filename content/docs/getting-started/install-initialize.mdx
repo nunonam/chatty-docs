@@ -75,7 +75,7 @@ const App = () => {
   */
 
   if (ready && user) {
-    await Chatty.init({
+    const missedCount = await Chatty.init({
       apiKey: CHATTY_API_KEY,     // API Key of your app that created in dashboard 
       member: {
         id: user.id,              // required (string type)
@@ -85,7 +85,11 @@ const App = () => {
         language: 'en'            // optional (string type)
         country: 'US'             // optional (string type)
       },
-    })
+    });
+
+    // init method returns missedCount to use badge count in chat button
+    // store the result to global state and use it
+    store.dispatch(setChat({ missedCount: missedCount }));
   }
 
   return (
