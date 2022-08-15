@@ -25,6 +25,7 @@ export default function MDXContent({ title, subtitle, banner, body, lastUpdatedO
     code: CodeBlock,
     inlineCode: InlineCodeBlock,
     img: ImageBlock,
+    h1: (props) => <HeadingBlock {...props} heading='h1' category={category} />,
     h2: (props) => <HeadingBlock {...props} heading='h2' category={category} />,
     h3: (props) => <HeadingBlock {...props} heading='h3' category={category} />,
     ul: (props) => <ListBlock {...props} />,

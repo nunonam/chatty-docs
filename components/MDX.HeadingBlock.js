@@ -7,9 +7,40 @@ function HeadingBlock(props) {
 
   const { children, heading, category } = props
 
+  let mtSize = 0
+  let mbSize = 0
+  let headingSize = 'lg';
+  let bbWidth = 1;
+
+  switch (heading) {
+    case 'h1':
+      mtSize = 0
+      mbSize = 10
+      headingSize = 'xl'
+      bbWidth = 0
+      break
+    case 'h2':
+      mtSize = 14
+      mbSize = 7
+      headingSize = 'md'
+      bbWidth = 1
+      break
+    case 'h3':
+      mtSize = 9
+      mbSize = 5
+      headingSize = 'sm'
+      break
+    default:
+      mtSize = 0
+      mtSize = 0
+      headingSize = 'sm'
+      break
+  }
+
+
   return (
-    <Box mt={heading === 'h2' ? 14 : 8} mb={heading === 'h2' ? 4 : 2} py={2} borderBottomWidth={heading === 'h2' ? 1 : 0} borderBottomColor={borderColor}>
-      <Heading size={heading === 'h2' ? 'md' : 'sm'}>{children}</Heading>
+    <Box mt={mtSize} mb={mbSize} py={2} borderBottomWidth={bbWidth} borderBottomColor={borderColor}>
+      <Heading size={headingSize}>{children}</Heading>
     </Box>
   );
 }
