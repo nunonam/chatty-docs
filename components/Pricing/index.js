@@ -23,7 +23,7 @@ export default function Pricing() {
           <ModalBody>
             <TableContainer>
               <Table variant='striped' size='xs'>
-                <Thead>
+                <Thead h={24}>
                   <Tr>
                     <Th></Th>
                     <Th><Text>Free</Text></Th>
