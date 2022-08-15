@@ -7,8 +7,9 @@ import Link from 'next/link'
 import Logo from './Logo'
 import Navigation from './Navigation'
 import SearchBar from './Searchbar'
-import { Box, Button, Flex, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Flex, HStack, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
+import Pricing from './Pricing'
 
 export default function Header() {
   const [isSignedIn, setSignedInState] = useState(false)
@@ -53,15 +54,18 @@ export default function Header() {
 
 
         <Box display={{ base: 'none', md: 'block' }}>
-          <Button
-            colorScheme="blue"
-            bgColor={buttonBgColor}
-            // variant="outline"
-            size='sm'
-            onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
-          >
-            dashboard
-          </Button>
+          <HStack spacing={2} alignItems={'center'}>
+            <Button
+              colorScheme="blue"
+              // bgColor={buttonBgColor}
+              // variant="outline"
+              size='sm'
+              onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
+            >
+              dashboard
+            </Button>
+            <Pricing />
+          </HStack>
         </Box>
 
         <Box display={{ base: 'block', md: 'none' }} px={{ base: 2, md: 0 }}>

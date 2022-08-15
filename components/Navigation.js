@@ -1,13 +1,13 @@
 import React from 'react'
 
-// import { useTheme } from 'next-themes'
 
 import meta from '../content/docs/meta.json'
 import LabelSelect from './LabelSelect'
-import { Box, Button, Heading, HStack, LinkBox, LinkOverlay, Stack, Text, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Box, Button, Heading, HStack, LinkBox, LinkOverlay, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SearchBar from './Searchbar'
+import Pricing from './Pricing'
 
 export default function Navigation() {
   // const { theme, setTheme } = useTheme()
@@ -77,7 +77,7 @@ export default function Navigation() {
 
   return (
     <Stack>
-      <Stack display={{ base: 'block', md: 'none' }} py={2}>
+      <Stack display={{ base: 'flex', md: 'none' }} py={2}>
         <Button
           colorScheme="blue"
           bgColor={buttonBgColor}
@@ -87,6 +87,7 @@ export default function Navigation() {
         >
           dashboard
         </Button>
+        <Pricing />
         <SearchBar />
       </Stack>
 
@@ -126,6 +127,7 @@ export default function Navigation() {
           )
         })}
       </Box>
+
 
     </Stack>
   )
