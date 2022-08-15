@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import classNames from 'classnames'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 
@@ -17,7 +16,7 @@ export default function Header() {
 
   const bgColor = useColorModeValue('gray.50', 'gray.900');
   const borderColor = useColorModeValue('gray.200', 'gray.800');
-  const buttonBgColor = useColorModeValue('gray.80', 'gray.50');
+  // const buttonBgColor = useColorModeValue('gray.80', 'gray.50');
 
   function toggleMobileNav() {
     setShowMobileNav((s) => !s)
@@ -57,8 +56,6 @@ export default function Header() {
           <HStack spacing={2} alignItems={'center'}>
             <Button
               colorScheme="blue"
-              // bgColor={buttonBgColor}
-              // variant="outline"
               size='sm'
               onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
             >

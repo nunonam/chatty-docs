@@ -6,7 +6,7 @@ export default function ImageBlock(props) {
   const [imageURL] = useState(src)
 
   return (
-    <img src={imageURL} alt={alt} ></img>
+    <img src={imageURL} alt={alt} style={{ borderRadius: 10 }}></img>
     // <Box>
     //   {alt && <Box>{alt}</Box>}
     // </Box>

@@ -4,7 +4,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer'
 import Prism from 'prism-react-renderer/prism'
 import vsDark from 'prism-react-renderer/themes/vsDark'
 import theme from 'prism-react-renderer/themes/vsLight'
-// import theme from 'prism-react-renderer/themes/github'
+import github from 'prism-react-renderer/themes/github'
 
 import CopyButton from './CopyButton'
 import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react'
@@ -32,11 +32,23 @@ export default function CodeBlock({ className, children }) {
         overflow={'auto'}
       >
         <Highlight
-          theme={vsDark}
+          // theme={github}
           {...defaultProps}
           code={children.trim()}
-          language={codeLanguage}
+          // language={codeLanguage}
+          language={'tsx'}
         >
+          {/* {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre className={className} style={style}>
+              {tokens.map((line, i) => (
+                <div {...getLineProps({ line, key: i })}>
+                  {line.map((token, key) => (
+                    <span {...getTokenProps({ token, key })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )} */}
           {({ tokens, getLineProps, getTokenProps }) => (
             <Box>
               {tokens.map((line, i) => (

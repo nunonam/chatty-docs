@@ -1,16 +1,15 @@
 import React from 'react';
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
+React.useLayoutEffect = React.useEffect
 
 export default function Pricing() {
   const [pricingOpen, setPricingOpen] = React.useState(false);
 
   return (
-    <>
+    <Box>
       <Button
         colorScheme="blue"
-        // bgColor={buttonBgColor}
-        // variant="outline"
         size='sm'
         onClick={() => setPricingOpen(true)}
       >
@@ -108,6 +107,6 @@ export default function Pricing() {
         </ModalContent>
       </Modal>
 
-    </>
+    </Box>
   );
 }

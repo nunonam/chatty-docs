@@ -16,7 +16,7 @@ function HeadingBlock(props) {
     case 'h1':
       mtSize = 0
       mbSize = 10
-      headingSize = 'xl'
+      headingSize = 'lg'
       bbWidth = 0
       break
     case 'h2':
