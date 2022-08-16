@@ -9,7 +9,7 @@ export default function NextBlock(props) {
   const itemColor = useColorModeValue('gray.700', 'gray.300');
 
   return (
-    <Box borderRadius={'lg'} p={3} bgColor={bgColor} my={2} fontSize={'sm'}>
+    <Box borderRadius={'lg'} p={3} bgColor={bgColor} my={10} fontSize={'sm'}>
       <Heading size='sm'>Next steps</Heading>
       <UnorderedList p={2}>
         {steps.map((step) => {

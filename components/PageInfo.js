@@ -16,7 +16,7 @@ export default function PageInfo({ lastUpdatedOn, slug }) {
         Last updated on {new Intl.DateTimeFormat('en-US', options).format(lastUpdatedOnDate)}{' '}
         {lastUpdatedOnDate.getDate()}, {lastUpdatedOnDate.getFullYear()}
       </Text>
-      <Link href={`https://github.com/chatty-cloud/docs/blob/main/content/docs/${slug}.mdx`}>
+      <Link href={slug === 'README' ? `https://github.com/chattycloud/docs/blob/main/${slug}.mdx` : `https://github.com/chattycloud/docs/blob/main/content/docs/${slug}.mdx`}>
         <Text fontSize={'sm'} fontWeight={'bold'} color={'gray.500'}>
           Help us improve this page
         </Text>

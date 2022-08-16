@@ -8,7 +8,7 @@ export default function NeedHelpBlock() {
     <Stack my={10} spacing={2}>
       <Text fontWeight={700}>Need Help?</Text>
       <Divider />
-      <Text fontSize={'sm'}>Get help from ChattyCloud's support team, or join our GitHub Discussion board to see how others are using ChattyCloud.</Text>
+      <Text fontSize={'sm'}>Get help from ChattyCloud's supports, or search our GitHub issues to see how others are using ChattyClient.</Text>
     </Stack>
   )
 }

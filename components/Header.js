@@ -55,7 +55,7 @@ export default function Header() {
         <Box display={{ base: 'none', md: 'block' }}>
           <HStack spacing={2} alignItems={'center'}>
             <Button
-              colorScheme="blue"
+              colorScheme="gray"
               size='sm'
               onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
             >

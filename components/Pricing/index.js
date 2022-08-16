@@ -7,9 +7,9 @@ export default function Pricing() {
   const [pricingOpen, setPricingOpen] = React.useState(false);
 
   return (
-    <Box>
+    <>
       <Button
-        colorScheme="blue"
+        colorScheme="gray"
         size='sm'
         onClick={() => setPricingOpen(true)}
       >
@@ -107,6 +107,6 @@ export default function Pricing() {
         </ModalContent>
       </Modal>
 
-    </Box>
+    </>
   );
 }

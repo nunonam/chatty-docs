@@ -79,9 +79,7 @@ export default function Navigation() {
     <Stack>
       <Stack display={{ base: 'flex', md: 'none' }} py={2}>
         <Button
-          colorScheme="blue"
-          bgColor={buttonBgColor}
-          // variant="outline"
+          colorScheme="gray"
           size='sm'
           onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
         >
