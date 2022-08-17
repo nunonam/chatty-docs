@@ -2,8 +2,7 @@ import React from 'react'
 
 
 import meta from '../content/docs/meta.json'
-import LabelSelect from './LabelSelect'
-import { Box, Button, Heading, HStack, LinkBox, LinkOverlay, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Box, Button, Heading, HStack, LinkBox, LinkOverlay, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Text, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SearchBar from './Searchbar'
@@ -77,41 +76,19 @@ export default function Navigation() {
 
   return (
     <Stack>
-      <Stack display={{ base: 'flex', md: 'none' }} py={2}>
-        <Button
-          colorScheme="gray"
-          size='sm'
-          onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
-        >
-          dashboard
-        </Button>
-        <Pricing />
-        <SearchBar />
-      </Stack>
-
       <Stack>
-        <LabelSelect label='SDK' value={library} size='xs' onChange={changeLibrary}>
+        <Select variant='filled' value={library} borderRadius={'md'} size={'sm'} onChange={changeLibrary}>
           <option value='react-native'>React Native</option>
           <option value='flutter'>Flutter</option>
-        </LabelSelect>
-        {/* <LabelSelect label='Version' value={'1.1'} size='xs' onChange={(e) => null}>
-          <option value='1.1'>1.1</option>
-          <option value='1.0'>1.0</option>
-        </LabelSelect> */}
-        {/* <LabelSelect label='Theme' value={theme} size='xs' onChange={(e) => setTheme(e.target.value)}> */}
-        <LabelSelect label='Theme' value={colorMode} size='xs' onChange={toggleColorMode}>
-          <option value='light'>Light</option>
-          <option value='dark'>Dark</option>
-          {/* <option value='system'>System</option> */}
-        </LabelSelect>
+        </Select>
       </Stack>
 
-      <Box>
+      {/* <Box>
         <HStack spacing={2}>
           <Text fontSize={'xs'}>SDK Version</Text>
           <Text fontSize={'xs'} fontWeight={700}>1.0.1</Text>
         </HStack>
-      </Box>
+      </Box> */}
 
       <Box>
         {toc.order.map((category, index) => {
@@ -126,7 +103,17 @@ export default function Navigation() {
         })}
       </Box>
 
-
+      <Stack display={{ base: 'flex', md: 'none' }} py={2}>
+        <Button
+          colorScheme="gray"
+          size='sm'
+          onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
+        >
+          dashboard
+        </Button>
+        <Pricing />
+        <SearchBar />
+      </Stack>
     </Stack>
   )
 }

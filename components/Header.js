@@ -6,9 +6,10 @@ import Link from 'next/link'
 import Logo from './Logo'
 import Navigation from './Navigation'
 import SearchBar from './Searchbar'
-import { Box, Button, Flex, HStack, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Flex, HStack, IconButton, LinkBox, LinkOverlay, Text, useColorModeValue } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import Pricing from './Pricing'
+import ThemeToggler from './ThemeToggler'
 
 export default function Header() {
   const [isSignedIn, setSignedInState] = useState(false)
@@ -54,6 +55,7 @@ export default function Header() {
 
         <Box display={{ base: 'none', md: 'block' }}>
           <HStack spacing={2} alignItems={'center'}>
+            <ThemeToggler />
             <Button
               colorScheme="gray"
               size='sm'
@@ -66,15 +68,15 @@ export default function Header() {
         </Box>
 
         <Box display={{ base: 'block', md: 'none' }} px={{ base: 2, md: 0 }}>
-
-          <button
-            aria-label='Open navigation menu'
-            onClick={toggleMobileNav}
-          >
-            {!showMobileNav ? <HamburgerIcon w={6} h={6} /> : <CloseIcon w={5} h={5} />}
-
-            {/* <HamburgerMenu open={showMobileNav} /> */}
-          </button>
+          <HStack spacing={2} alignItems={'center'}>
+            <ThemeToggler />
+            <IconButton
+              icon={!showMobileNav ? <HamburgerIcon w={6} h={6} /> : <CloseIcon w={5} h={5} />}
+              aria-label={""}
+              onClick={toggleMobileNav}
+              variant="ghost"
+            />
+          </HStack>
         </Box>
       </Flex>
       <Box zIndex={40} w={'full'} px={4} pt={3} display={{ base: showMobileNav ? 'block' : 'none', md: 'none' }}>

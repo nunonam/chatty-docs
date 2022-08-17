@@ -19,6 +19,8 @@ export default function SearchBar() {
     <Input
       id='searchbox'
       minW={'xs'}
+      size={'sm'}
+      borderRadius={'md'}
       bgColor={bgColor}
       ref={searchInput}
       type={"search"}
