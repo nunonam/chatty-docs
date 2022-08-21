@@ -221,7 +221,15 @@ const ChatList = (props: ChatListProps) => {
 
     setChatList((oldChats) => {
       const chatMap = new Map([[data['id'], data]]);
-      return new Map([...Array.from(oldChats), ...Array.from(chatMap)]);
+
+      // When lastMessage was updated, this chat should go to top of the list
+      // Delete and add to ahead of the array
+      if (data.updatedAt !== oldChats.get(data['id'])?.updatedAt) {
+        oldChats.delete(data['id']);
+        return new Map([...Array.from(chatMap), ...Array.from(oldChats)]);
+      } else {
+        return new Map([...Array.from(oldChats), ...Array.from(chatMap)]);
+      }
     });
   };
 

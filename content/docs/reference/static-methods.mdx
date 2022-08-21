@@ -7,7 +7,7 @@ Chatty class static methods. These are async and non-socket methods
 static method init is for initialize chatty client. it will initialize apiKey and chat member
 
 ```typescript
-interface IInitializePayloads {
+export interface InitializePayloadType {
   apiKey: string;
   member: {
     id: string
@@ -23,13 +23,8 @@ interface IInitializePayloads {
   };
 }
 
-await Chatty.init({
-  apiKey: string,
-  member: {
-    id: string,
-    name: string
-  }
-});
+
+await Chatty.init(payload: InitializePayloadType);
 ```
 
 ## exit()
