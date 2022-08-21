@@ -19,43 +19,70 @@ Pressing the chat button and navigating to chat screen with 'with' param that in
 
 ## 2. How to connect to chat socket.
 
-* Should use an instance of ChattyChat class to connect to chat socket
-* When create ChattyChat instance, specify 6 chat handlers.
-* chattyList of ChattyChat constructor is an optional parameter and an instance of ChattyList class. In case of navigating from ChatList, use the instance of chatlist then it will help to update the chat of chatlist without writing code
+- Should use an instance of ChattyChat class to connect to chat socket
+- When create ChattyChat instance, specify 6 chat handlers.
+- chattyList of ChattyChat constructor is an optional parameter and an instance of ChattyList class. In case of navigating from ChatList, use the instance of chatlist then it will help to update the chat of chatlist without writing code
 
-### Chat connect payloads
+### Chat connect payload
 
-### at: (optional) string type
-- <b>Required</b> in case of navigating from ChatList
-- It should be a chat id
+Below code is a part of Types.d.ts 
+```typescript
+Types.d.ts
 
-### with: (optional) string array type
-- <b>Required</b> in case of starting chat by selecting member id not chat id
-- It shoud be array of member id
+export interface ChatConnectPayloadType {
+  /**
+   * Required in case of navigating from ChatList
+   * It should be a chat id
+   */
+  at?: string;
 
-### distinctKey: (optional) string type
-- This key makes the chat unique
-- Thus, If the same distinctKey is exist, the existing chat is used. Or not, a new chat is created.
-- Use your own custom key or use generateDistinctKey, static method of Chatty class which returns md5 value. If using generateDistinctKey method, commonly array of MemberIds is used as a parameter 
+  /**
+   * Required in case of starting chat by selecting member id not chat id
+   * It shoud be an array of member ids
+   */
+  with?: Array<string>;
 
+  /**
+   * This key makes the chat unique
+   * When trying to connect with a same distinctKey. always same chat is connected.
+   * Whereas, if connect without distinctKey, always new chat is created.
+   * Create your own custom key or use generateDistinctKey, static method of Chatty class which returns md5 hashed value. 
+   * If using generateDistinctKey method, use member ids as parameters
+   */
+  distinctKey?: string;
 
-### group: (optional) string type
-- Group name for grouping(filtering) chat at chatlist
-- Used only when creating a new chat
+  /**
+   * Group name for grouping(filtering) chat at chatlist
+   * Used only when creating a new chat
+   */
+  group?: string;
 
-### name: (optional) string type
-- Chat name
-- Used only when creating a new chat
+  /**
+   * Chat name
+   * Used only when creating a new chat
+   */
+  name?: string;
 
-### image: (optional) string type
-- Image url for chat image
-- Used only when creating a new chat
+  /**
+   * Image url for chat image
+   * Used only when creating a new chat
+   */
+  image?: string;
 
-### data: (optional) string or json type
-- Extra data for chat
-- Size can't exceed 2K
-- Used only when creating a new chat
+  /**
+   * If it's true, the chat is opened to every member at chatlist
+   * default is false (private)
+   */
+  public?: boolean;
 
+  /**
+   * Extra custom information for chat
+   * Size can't exceed 2K
+   * Used only when creating a new chat
+   */
+  data?: any;
+}
+```
 
 Below code is a part of Chat.tsx
 ```typescript

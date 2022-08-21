@@ -34,7 +34,7 @@ export default function Header() {
       // sx={{ position: 'sticky', top: '0' }}
       zIndex={40}
       w={'full'}
-      py={4}
+      py={3}
       mx={'auto'}
       borderBottomWidth={1}
       borderBottomColor={borderColor}
