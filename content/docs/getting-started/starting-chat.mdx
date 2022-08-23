@@ -148,7 +148,16 @@ const Chat = (props: ChatProps) => {
 When chat is connected successfuly, call chatty.fetchMessages()
 
 ### fetchMessages payloads
-- refresh: (optional) if it's true, fetch chatlist as refresh
+Below code is a part of Types.d.ts
+```typescript
+export interface FetchMessagesPayloadType {
+  /**
+   * if it's true, fetch messages as refresh. (page === 1)
+   * if it's false, fetch messages as loadmore. (page > 1)
+   */
+  refresh?: boolean;
+}
+```
 
 
 Below code is a part of Chat.tsx
