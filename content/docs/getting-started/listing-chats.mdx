@@ -53,8 +53,25 @@ const ChatList = (props: ChatListProps) => {
 When chatlist is connected successfuly, call chatty.fetchChatList()
 
 ### fetchChatList payloads
-- refresh: (optional) if it's true, fetch chatlist as refresh
-- group: (optional) if it's specified, fetch only same as it's group name
+
+Below code is a part of Types.d.ts
+```typescript
+Types.d.ts
+
+export interface FetchChatListPayloadType {
+  /**
+   * if it's true, fetch chatlist as refresh. (page === 1)
+   * if it's false, fetch chatlist as loadmore. (page > 1)
+   */
+  refresh?: boolean;
+
+  /**
+   * When need to be filtered by group name, specify it here
+   */
+  group?: string;
+}
+
+```
 
 Below code is a part of ChatList.tsx
 ```typescript
