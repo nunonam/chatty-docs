@@ -96,10 +96,11 @@ import { View } from 'react-native';
 const ChatButton = (props: ChatButtonProps) => {
   // global redux state for missed message count
   // Can access missed count using chat.missedCount
-  // chat.missedCount should be updated in below 3 cases
+  // chat.missedCount should be updated in below 4 cases
   // 1. when Chatty.init() is called, if it success, then missedCount is returned
   // 2. when receive a new message push notification (refer to data of push notification)
   // 3. when AppState is changed, if AppState become foreground from others, then call Chatty.getMissedCount()
+  // 4. when Chat connect or disconnect, it dismiss missed count.
   const chat = useChat();  
 
   return (
