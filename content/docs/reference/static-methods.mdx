@@ -32,6 +32,7 @@ await Chatty.init(payload: InitPayloadType);
 
 static method exit is for terminate chatty client. 
 when App user sign out, it will destroy apiKey and chat member
+and additionally to delete a member, set deleteMember to true. If it's true, the member will be deleted, and excluded from assiciated all chat.
 
 ### ExitPayloadType
 ```typescript
