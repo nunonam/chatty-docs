@@ -6,8 +6,9 @@ Chatty class static methods. These are async and non-socket methods
 
 static method init is for initialize chatty client. it will initialize apiKey and chat member
 
+### InitPayloadType
 ```typescript
-export interface InitializePayloadType {
+export interface InitPayloadType {
   apiKey: string;
   member: {
     id: string
@@ -24,7 +25,7 @@ export interface InitializePayloadType {
 }
 
 
-await Chatty.init(payload: InitializePayloadType);
+await Chatty.init(payload: InitPayloadType);
 ```
 
 ## exit()
@@ -32,8 +33,13 @@ await Chatty.init(payload: InitializePayloadType);
 static method exit is for terminate chatty client. 
 when App user sign out, it will destroy apiKey and chat member
 
+### ExitPayloadType
 ```typescript
-await Chatty.exit();
+export interface ExitPayloadType {
+  deleteMember?: boolean;
+}
+
+await Chatty.exit(payload: ExitPayloadType);
 ```
 
 ## generateDistinctKey()

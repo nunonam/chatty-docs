@@ -100,6 +100,26 @@ const App = () => {
 
 }
 ```
+
+### InitPayloadType
+```typescript
+export interface InitPayloadType {
+  apiKey: string;
+  member: {
+    id: string
+    name: string
+    language: string
+    country: string
+    avatar: string
+    deviceToken: string
+    device: DeviceType | null
+    group: string
+    permission: MemberPermissionType
+    data: any | null
+  };
+}
+```
+
 <InfoBlock type="warning">
   Please manage API Key securely.
 </InfoBlock>
