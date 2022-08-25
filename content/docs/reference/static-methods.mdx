@@ -45,10 +45,11 @@ await Chatty.exit(payload: ExitPayloadType);
 
 ## generateDistinctKey()
 
-this distinctKey is used for making the chat unique
+distinctKey of chat schema is used for making the chat unique and this function helps you to make your own key.
+This method returns md5 hashed value using parameters and an order of parameters does not effect the return value.
 
 ```typescript
-await Chatty.generateDistinctKey(['MemberId-1', 'MemberId-2']);
+await Chatty.generateDistinctKey(param1, param2, ..., paramN);
 
 ```
 
