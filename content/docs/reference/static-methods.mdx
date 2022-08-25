@@ -30,9 +30,9 @@ await Chatty.init(payload: InitPayloadType);
 
 ## exit()
 
-static method exit is for terminate chatty client. 
-when App user sign out, it will destroy apiKey and chat member
-and additionally to delete a member, set deleteMember to true. If it's true, the member will be deleted, and excluded from associated all chat.
+- static method exit is for terminate chatty client. 
+- when App user sign out, it will destroy apiKey and chat member
+- To delete a member, set deleteMember to true. If it's true, the member will be deleted, and excluded from associated all chat.
 
 ### ExitPayloadType
 ```typescript
@@ -45,8 +45,8 @@ await Chatty.exit(payload: ExitPayloadType);
 
 ## generateDistinctKey()
 
-distinctKey of chat schema is used for making the chat unique and this function helps you to make your own key.
-This method returns md5 hashed value using parameters and an order of parameters does not effect the return value.
+- distinctKey of chat schema is used for making the chat unique and this function helps you to make your own key.
+- This method returns md5 hashed value using parameters and an order of parameters does not effect the return value.
 
 ```typescript
 await Chatty.generateDistinctKey(param1, param2, ..., paramN);
