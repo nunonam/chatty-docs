@@ -6,8 +6,10 @@ const shadows = {
   outline: 'none'
 }
 const fonts = {
-  heading: 'Montserrat',
-  body: 'Montserrat'
+  // heading: 'Montserrat',
+  // body: 'Montserrat'
+  heading: 'Google Sans',
+  body: 'Google Sans'
 }
 // const breakpoints = createBreakpoints({
 //   sm: "320px",
