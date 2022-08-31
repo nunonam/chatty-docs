@@ -24,6 +24,7 @@ const ChatList = (props: ChatListProps) => {
    */
   React.useEffect(() => {
     const chattylist = new ChattyList({
+      group: 'chat-group-name',
       onChatListConnect: onChatListConnect, // refer to below handlers section
       onChatListFetch: onChatListFetch,     // refer to below handlers section
       onChatListUpdate: onChatListUpdate    // refer to below handlers section
@@ -50,13 +51,14 @@ const ChatList = (props: ChatListProps) => {
 
 ## 2. How to fetch chatlist
 
-When chatlist is connected successfuly, call chatty.fetchChatList()
+- When chatlist is connected successfuly, chatty client sdk fetchs chatlist. So you don't need to call fetchChatList method.
+- At onChatListFetch handler, you can see the chatlist fetched.
+- But if need to fetch chatlist manually, call the methods like as below.
+
 
 ### fetchChatList payloads
 
-Below code is a part of Types.d.ts
 ```typescript
-Types.d.ts
 
 export interface FetchChatListPayloadType {
   /**
@@ -64,38 +66,16 @@ export interface FetchChatListPayloadType {
    * if it's false, fetch chatlist as loadmore. (page > 1)
    */
   refresh?: boolean;
-
-  /**
-   * When need to be filtered by group name, specify it here
-   */
-  group?: string;
 }
+
+chattyInstance.fetchChatList({refresh: true});
+
+// to load chatlist more
+hasNext && chattyInstance.fetchChatList({refresh: false});
+
 
 ```
 
-Below code is a part of ChatList.tsx
-```typescript
-ChatList.tsx
-
-...
-
-const ChatList = (props: ChatListProps) => {
-  const [chatty, setChatty] = React.useState();
-  const [chatlist, setChatList] = React.useState(new Map());
-  const [connected, setConnected] = React.useState(false);
-
-  ...
-
-  React.useEffect(() => {
-    if (chatty && connected) {
-      chatty.fetchChatList({ refresh: true, group: props.group });
-    }
-  }, [connected, chatty]);
-
-  ...
-
-}
-```
 
 ## 3. ChatList socket handlers
 
@@ -112,8 +92,7 @@ ChatList.tsx
 const ChatList = (props: ChatListProps) => {
   const [chatty, setChatty] = React.useState();
   const [chatlist, setChatList] = React.useState(new Map());
-  const [connected, setConnected] = React.useState(false);
-
+  
   ...
 
   const onChatListConnect = (data: ChattyTypes.ChatListConnectResponseType) => {
@@ -121,8 +100,6 @@ const ChatList = (props: ChatListProps) => {
       console.warn('onChatListConnect error', data.error.message);
       return;
     }
-
-    setConnected(true);
   }
 
   ...
@@ -142,7 +119,6 @@ ChatList.tsx
 const ChatList = (props: ChatListProps) => {
   const [chatty, setChatty] = React.useState();
   const [chatlist, setChatList] = React.useState(new Map());
-  const [connected, setConnected] = React.useState(false);
   const [hasNext, setHasNext] = React.useState(true);
 
   ...

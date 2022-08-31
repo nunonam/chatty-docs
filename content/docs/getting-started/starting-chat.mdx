@@ -145,40 +145,28 @@ const Chat = (props: ChatProps) => {
 
 
 ## 3. How to fetch messages
-When chat is connected successfuly, call chatty.fetchMessages()
+- When chat is connected successfuly, chatty client sdk fetchs messages. So you don't need to call fetchMessages method.
+- At onMessagesFetch handler, you can see the messages fetched.
+- But if need to fetch messages manually, call the methods like as below.
 
-### fetchMessages payloads
-Below code is a part of Types.d.ts
+### fetchMessages methods
 ```typescript
 export interface FetchMessagesPayloadType {
   /**
    * if it's true, fetch messages as refresh. (page === 1)
    * if it's false, fetch messages as loadmore. (page > 1)
    */
-  refresh?: boolean;
+  refresh: boolean;
 }
+
+chattyInstance.fetchMessages({refresh: true});
+
+// to load messages more
+hasNext && chattyInstance.fetchMessages({refresh: false});
+
 ```
 
 
-Below code is a part of Chat.tsx
-```typescript
-Chat.tsx
-
-...
-
-const Chat = (props: ChatProps) => {
-  const [chatty, setChatty] = React.useState();
-  const [connected, setConnected] = React.useState(false);
-
-  React.useEffect(() => {
-    if (chatty && connected) {
-      chatty?.fetchMessages({refresh: true});
-    }
-  }, [connected, chatty]);
-
-  ...
-}
-```
 
 ## 4. Chat socket handlers
 
@@ -195,8 +183,7 @@ Chat.tsx
 const Chat = (props: ChatProps) => {
   const [chatty, setChatty] = React.useState();
   const [chat, setChat] = React.useState();
-  const [connected, setConnected] = React.useState(false);
-
+  
   ...
 
   const onChatConnect = (data: ChattyTypes.ChatConnectResponseType) => {
@@ -242,7 +229,6 @@ const Chat = (props: ChatProps) => {
     */
 
     setChat(data);
-    setConnected(true);
   };
 
   ...
@@ -263,7 +249,6 @@ Chat.tsx
 const Chat = (props: ChatProps) => {
   const [chatty, setChatty] = React.useState();
   const [chat, setChat] = React.useState();
-  const [connected, setConnected] = React.useState(false);
   const [messages, setMessages] = React.useState(new Map());
   const [hasNext, setHasNext] = React.useState(true);
   
@@ -333,7 +318,6 @@ Chat.tsx
 const Chat = (props: ChatProps) => {
   const [chatty, setChatty] = React.useState();
   const [chat, setChat] = React.useState();
-  const [connected, setConnected] = React.useState(false);
   const [messages, setMessages] = React.useState(new Map());
   const [hasNext, setHasNext] = React.useState(true);
   
@@ -393,7 +377,6 @@ Chat.tsx
 const Chat = (props: ChatProps) => {
   const [chatty, setChatty] = React.useState();
   const [chat, setChat] = React.useState();
-  const [connected, setConnected] = React.useState(false);
   const [messages, setMessages] = React.useState(new Map());
   const [hasNext, setHasNext] = React.useState(true);
   
@@ -429,7 +412,6 @@ Chat.tsx
 const Chat = (props: ChatProps) => {
   const [chatty, setChatty] = React.useState();
   const [chat, setChat] = React.useState();
-  const [connected, setConnected] = React.useState(false);
   const [messages, setMessages] = React.useState(new Map());
   const [hasNext, setHasNext] = React.useState(true);
   
@@ -467,7 +449,6 @@ Chat.tsx
 const Chat = (props: ChatProps) => {
   const [chatty, setChatty] = React.useState();
   const [chat, setChat] = React.useState();
-  const [connected, setConnected] = React.useState(false);
   const [messages, setMessages] = React.useState(new Map());
   const [hasNext, setHasNext] = React.useState(true);
   
@@ -503,7 +484,6 @@ Chat.tsx
 const Chat = (props: ChatProps) => {
   const [chatty, setChatty] = React.useState();
   const [chat, setChat] = React.useState();
-  const [connected, setConnected] = React.useState(false);
   const [messages, setMessages] = React.useState(new Map());
   const [hasNext, setHasNext] = React.useState(true);
   
