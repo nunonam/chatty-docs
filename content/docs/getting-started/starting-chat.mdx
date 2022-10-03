@@ -3,14 +3,14 @@
 
 ## 1. Two way of starting Chat
 
-### Start with member id
+### 1). Start with member id
 - Used when starting chat by selecting peer member id (in case of not being aware of chat id)
 - Let's assume that user want to chat by touching chat button at other user's profile screen. If the other user also registered as a chat member through init method, Chating with the user is an available.
 Pressing the chat button and navigating to chat screen with 'with' param that indicates member id is the begining of starting a chat.
 
 
 
-### Start at chat id
+### 2). Start at chat id
 - Used when starting chat by selecting a chat at chatlist
 - Pressing a chat of the chatlist and navigating to a chat screen with 'at' param that indicates chat id is the begining of starting a chat.
 
@@ -23,66 +23,6 @@ Pressing the chat button and navigating to chat screen with 'with' param that in
 - When create ChattyChat instance, specify 6 chat handlers.
 - chattyList of ChattyChat constructor is an optional parameter and an instance of ChattyList class. In case of navigating from ChatList, use the instance of chatlist then it will help to update the chat of chatlist without writing code
 
-### Chat connect payload
-
-Below code is a part of Types.d.ts 
-```typescript
-Types.d.ts
-
-export interface ChatConnectPayloadType {
-  /**
-   * Required in case of navigating from ChatList
-   * It should be a chat id
-   */
-  at?: string;
-
-  /**
-   * Required in case of starting chat by selecting member id not chat id
-   * It shoud be an array of member ids
-   */
-  with?: Array<string>;
-
-  /**
-   * This key makes the chat unique
-   * When trying to connect with a same distinctKey. always same chat is connected.
-   * Whereas, if connect without distinctKey, always new chat is created.
-   * Create your own custom key or use generateDistinctKey, static method of Chatty class which returns md5 hashed value. 
-   * If using generateDistinctKey method, use member ids as parameters
-   */
-  distinctKey?: string;
-
-  /**
-   * Group name for grouping(filtering) chat at chatlist
-   * Used only when creating a new chat
-   */
-  group?: string;
-
-  /**
-   * Chat name
-   * Used only when creating a new chat
-   */
-  name?: string;
-
-  /**
-   * Image url for chat image
-   * Used only when creating a new chat
-   */
-  image?: string;
-
-  /**
-   * If it's true, the chat is opened to every member at chatlist
-   * default is false (private)
-   */
-  public?: boolean;
-
-  /**
-   * Extra custom information for chat
-   * Size can't exceed 2K
-   * Used only when creating a new chat
-   */
-  data?: any;
-}
-```
 
 Below code is a part of Chat.tsx
 ```typescript
@@ -138,9 +78,60 @@ const Chat = (props: ChatProps) => {
 
 ```
 
+### ConnectChatPayloadType
+```typescript
+export interface ConnectChatPayloadType {
+  /**
+   * Required in case of navigating from ChatList
+   * It should be a chat id
+   */
+  at?: string;
+
+  /**
+   * Required in case of starting chat by selecting member id not chat id
+   * It shoud be an array of member ids
+   */
+  with?: Array<string>;
+
+  /**
+   * This key makes the chat unique
+   * When trying to connect with a same distinctKey. always same chat is connected.
+   * Whereas, if connect without distinctKey, always new chat is created.
+   * Create your own custom key or use generateDistinctKey, static method of Chatty class which returns md5 hashed value. 
+   * If using generateDistinctKey method, use member ids as parameters
+   */
+  distinctKey?: string;
+
+  /**
+   * Group name for grouping(filtering) chat at chatlist
+   * Used only when creating a new chat
+   */
+  group?: string;
+
+  /**
+   * Chat name
+   * Used only when creating a new chat
+   */
+  name?: string;
+
+  /**
+   * Image uri for chat image
+   * Used only when creating a new chat
+   */
+  image?: string;
+
+  /**
+   * Extra custom information for chat
+   * Size can't exceed 2K
+   * Used only when creating a new chat
+   */
+  data?: any;
+}
+```
+
 
 <InfoBlock type="note">
-- Chat Members can join until maximum 100
+- Chat Members can join until maximum 30
 </InfoBlock>
 
 
@@ -186,7 +177,7 @@ const Chat = (props: ChatProps) => {
   
   ...
 
-  const onChatConnect = (data: ChattyTypes.ChatConnectResponseType) => {
+  const onChatConnect = (data: ChattyTypes.onChatConnectResponseType) => {
     if (data.error) {
       console.warn('onChatConnect error', data.error.message);
       return;
@@ -254,7 +245,7 @@ const Chat = (props: ChatProps) => {
   
   ...
 
-  const onMessagesFetch = (data: ChattyTypes.MessagesFetchResponseType) => {
+  const onMessagesFetch = (data: ChattyTypes.onMessagesFetchResponseType) => {
     if (data.error) {
       console.warn('onMessagesFetch error', data.error.message);
       return;
@@ -346,7 +337,7 @@ const Chat = (props: ChatProps) => {
     }
   }
   */
-  const onMessageReceive = (data: ChattyTypes.MessageReceiveResponseType) => {
+  const onMessageReceive = (data: ChattyTypes.onMessageReceiveResponseType) => {
     if (data.error) {
       console.warn('onMessageReceive error', data.error.message);
       return;
@@ -382,7 +373,7 @@ const Chat = (props: ChatProps) => {
   
   ...
 
-  const onMessagesUpdate = (data: ChattyTypes.MessagesUpdateResponseType) => {
+  const onMessagesUpdate = (data: ChattyTypes.onMessagesUpdateResponseType) => {
     if (data.error) {
       console.warn('onMessagesUpdate error', data.error.message);
       return;
@@ -417,7 +408,7 @@ const Chat = (props: ChatProps) => {
   
   ...
 
-  const onMessageSend = (data: ChattyTypes.MessageSendResponseType) => {
+  const onMessageSend = (data: ChattyTypes.onMessageSendResponseType) => {
     if (data.error) {
       console.warn('onMessageSend error', data.error.message);
       return;
@@ -454,7 +445,7 @@ const Chat = (props: ChatProps) => {
   
   ...
 
-  const onChatRefresh = (data: ChattyTypes.ChatRefreshResponseType) => {
+  const onChatRefresh = (data: ChattyTypes.onChatRefreshResponseType) => {
     if (data.error) {
       console.warn('onChatUpdate error', data.error.message);
       return;

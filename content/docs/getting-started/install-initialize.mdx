@@ -1,5 +1,4 @@
 # Install and Initialize
-Install <b>[`chatty-client`](https://www.npmjs.com/package/chatty-client)</b> npm package and prepare cloud dashboard and How to initialize chatty sdk
 
 ## 1. Client SDK installation
 
@@ -16,10 +15,13 @@ yarn add chatty-client
 
 ## 2. Cloud Setup
 
-It's needed to get API key to use sdk at client frontend. To do this, Create new application at [`dashboard`](https://devdashboard.chatty-cloud.com)
+### 1). Create dashboard account
+- Go to [`dashboard`](https://devdashboard.chatty-cloud.com)
 
-If your app is created, goto menu apps and then you can get API key
+### 2). Create new application
+- Create new application by clicking the button '+ New App' at [`dashboard app`](https://devdashboard.chatty-cloud.com/apps)
 
+### 3). Get API key
 
 ![API key at dashboard app tab](/img/docs/dashboard-apikey.png)
 
@@ -30,8 +32,8 @@ If your app is created, goto menu apps and then you can get API key
 
 To use chatty-client sdk properly, need to initialize two things as below
 
-- API key generated at dashboard
-- User's id and name as a member to let sdk know who attend chat (we call your app's user as 'member' )
+- API key (generated at dashboard)
+- Chat Member (user unique id and name of your service platform)
 
 
 ### 2). Where to initialize
@@ -41,7 +43,8 @@ To use chatty-client sdk properly, need to initialize two things as below
 
 <InfoBlock type="note">
 • Even if init function is called multiple time, the member is not registered as a duplicate (member is always unique)
-
+</InfoBlock>
+<InfoBlock type="note">
 • If member signout and signin again, the member id should be different with previous member id. especially, in case of third party oauth login, don't use provider's id as member id
 </InfoBlock>
 
@@ -66,22 +69,27 @@ const App = () => {
   }, []);
 
   /*
-  When identifier of user is specific, call init function
+   *
+  When user id is specific, call init function
   Ex) 
   1. during application bootup process, 
-  2. after new user join or login
+  2. after user join or login
   */
 
   if (ready && user) {
     const missedCount = await Chatty.init({
       apiKey: CHATTY_API_KEY,     // API Key of your app that created in dashboard 
       member: {
-        id: user.id,              // required (string type)
-        name: user.name,          // required (string type)
-        avatar: user.avatar,      // optional (string url type started with 'https://')  
-        deviceToken: 'xxxxxxxxxx' // optional (string type)
-        language: 'en'            // optional (string type)
-        country: 'US'             // optional (string type)
+        id: user.id,
+        name: user.name,
+        language: 'en',
+        country: 'US',
+        avatar: user.avatar,
+        deviceToken: 'xxxxxxxxxx',
+        group: '',
+        data: {
+          extraInfo: '',
+        }
       },
     });
 
@@ -106,16 +114,14 @@ const App = () => {
 export interface InitPayloadType {
   apiKey: string;
   member: {
-    id: string
-    name: string
-    language: string
-    country: string
-    avatar: string
-    deviceToken: string
-    device: DeviceType | null
-    group: string
-    permission: MemberPermissionType
-    data: any | null
+    id: string;
+    name: string;
+    language?: string;
+    country?: string;
+    avatar?: string;
+    deviceToken?: string;
+    group?: string;
+    data?: any | null;
   };
 }
 ```

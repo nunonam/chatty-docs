@@ -6,7 +6,7 @@ export default function ListBlock(props) {
   const pColor = useColorModeValue('gray.700', 'gray.300');
 
   return (
-    <UnorderedList p={2} mb={10}>
+    <UnorderedList px={6} mb={10}>
       {Object.prototype.toString.call(children) === '[object Array]' ? children.map((item, index) => {
         return (
 

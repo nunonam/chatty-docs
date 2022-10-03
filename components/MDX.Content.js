@@ -29,7 +29,7 @@ export default function MDXContent({ title, subtitle, banner, body, lastUpdatedO
     h2: (props) => <HeadingBlock {...props} heading='h2' category={category} />,
     h3: (props) => <HeadingBlock {...props} heading='h3' category={category} />,
     ul: (props) => <ListBlock {...props} />,
-    p: (props) => <Text color={pColor} fontWeight={500} lineHeight={1.6} fontSize={'sm'}>{props.children}</Text>,
+    p: (props) => <Box px={4}><Text color={pColor} fontWeight={500} lineHeight={1.6} fontSize={'sm'}>{props.children}</Text></Box>,
     NextBlock,
     InfoBlock
   }
