@@ -14,7 +14,7 @@ export default function Footer() {
         <Button variant={'link'} size='xs' onClick={() => window.open('https://app.termly.io/document/terms-of-use-for-saas/fc9e8007-f21e-4d94-ac2e-01848b5ec7fb#agreement', '_ blank')}>Terms</Button>
         <Button variant={'link'} size='xs' onClick={() => window.open('https://app.termly.io/document/cookie-policy/578b6f0b-18f3-4690-800d-6126e0ff898d', '_ blank')}>Cookie</Button>
       </HStack>
-      <Text fontSize={'sm'} fontWeight={'extrabold'}>&copy; 2021 ChattyCloud Inc.</Text>
+      <Text fontSize={'sm'} fontWeight={'extrabold'}>&copy; 2021 REACTLAB Inc.</Text>
     </HStack>
 
   )
