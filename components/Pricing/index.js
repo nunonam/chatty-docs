@@ -26,10 +26,15 @@ export default function Pricing() {
                   <Tr>
                     <Th></Th>
                     <Th><Text>Free</Text></Th>
-                    <Th><Text>Production</Text><Text fontSize={'xs'}>$99/month</Text></Th>
+                    <Th><Text>Production</Text></Th>
                   </Tr>
                 </Thead>
                 <Tbody>
+                  <Tr fontSize={'xs'}>
+                    <Td py={2}>Price</Td>
+                    <Td>$0</Td>
+                    <Td>$99/month</Td>
+                  </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Messages</Td>
                     <Td>10K messages</Td>
@@ -38,12 +43,12 @@ export default function Pricing() {
                   <Tr fontSize={'xs'}>
                     <Td py={2}>MAU</Td>
                     <Td>-</Td>
-                    <Td>5000 users per month</Td>
+                    <Td>2000 users per month</Td>
                   </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>MAU Overage Rate</Td>
                     <Td>-</Td>
-                    <Td>$0.02 per user</Td>
+                    <Td>$0.03 per user</Td>
                   </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Storage Images</Td>
