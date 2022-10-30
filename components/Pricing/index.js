@@ -1,5 +1,22 @@
 import React from 'react';
-import { Box, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useColorModeValue
+} from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
 React.useLayoutEffect = React.useEffect
 
@@ -17,16 +34,18 @@ export default function Pricing() {
       </Button>
       <Modal onClose={() => setPricingOpen(false)} size={'xl'} isOpen={pricingOpen}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent backgroundColor={useColorModeValue('white', 'gray.900')}>
           <ModalHeader>Upgrade Plan</ModalHeader>
           <ModalBody>
             <TableContainer>
-              <Table variant='striped' size='xs'>
+              <Table
+                size='xs'
+              >
                 <Thead h={20}>
                   <Tr>
                     <Th></Th>
-                    <Th><Text>Free</Text></Th>
-                    <Th><Text>Production</Text></Th>
+                    <Th><Text color={useColorModeValue('gray.800', 'gray.100')}>Free</Text></Th>
+                    <Th><Text color={useColorModeValue('gray.800', 'gray.100')}>Production</Text></Th>
                   </Tr>
                 </Thead>
                 <Tbody>
