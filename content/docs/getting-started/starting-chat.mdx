@@ -20,7 +20,7 @@ Pressing the chat button and navigating to chat screen with 'with' param that in
 ## 2. How to connect to chat socket.
 
 - Should use an instance of ChattyChat class to connect to chat socket
-- When create ChattyChat instance, specify 6 chat handlers.
+- When create ChattyChat instance, specify 7 chat handlers.
 - chattyList of ChattyChat constructor is an optional parameter and an instance of ChattyList class. In case of navigating from ChatList, use the instance of chatlist then it will help to update the chat of chatlist without writing code
 
 
@@ -41,11 +41,12 @@ const Chat = (props: ChatProps) => {
     const chattychat = new ChattyChat({
       chattyList: props.chattylist,       // Instance of ChattyList. It will help to update this chat of chatlist (In case of navigating from ChatList)
       onChatConnect: onChatConnect,       // refer to below handlers section
+      onChatRefresh: onChatRefresh,       // refer to below handlers section
+      onChatLeave: onChatLeave,           // refer to below handlers section
       onMessagesFetch: onMessagesFetch,   // refer to below handlers section
       onMessageReceive: onMessageReceive, // refer to below handlers section
       onMessagesUpdate: onMessagesUpdate, // refer to below handlers section
       onMessageSend: onMessageSend,       // refer to below handlers section
-      onChatRefresh: onChatRefresh,       // refer to below handlers section
     });
 
     chattychat.connect({
@@ -227,8 +228,68 @@ const Chat = (props: ChatProps) => {
 }
 ```
 
+### 2). onChatRefresh
+Callback function called when chat is refreshed. mainly called when chat member changed
 
-### 2). onMessagesFetch
+Below code is a part of Chat.tsx
+```typescript
+Chat.tsx
+
+...
+
+const Chat = (props: ChatProps) => {
+  const [chatty, setChatty] = React.useState();
+  const [chat, setChat] = React.useState();
+  const [messages, setMessages] = React.useState(new Map());
+  const [hasNext, setHasNext] = React.useState(true);
+  
+  ...
+
+  const onChatRefresh = (data: ChattyTypes.onChatRefreshResponseType) => {
+    if (data.error) {
+      console.warn('onChatRefresh error', data.error.message);
+      return;
+    }
+  
+    setChat(data);
+  }
+
+  ...
+
+}
+```
+
+### 3). onChatLeave
+Callback function called when a member of the chat was left.
+
+Below code is a part of Chat.tsx
+```typescript
+Chat.tsx
+
+...
+
+const Chat = (props: ChatProps) => {
+  const [chatty, setChatty] = React.useState();
+  const [chat, setChat] = React.useState();
+  const [messages, setMessages] = React.useState(new Map());
+  const [hasNext, setHasNext] = React.useState(true);
+  
+  ...
+
+  const onChatLeave = (data: ChattyTypes.onChatLeaveResponseType) => {
+    if (data.error) {
+      console.warn('onChatLeave error', data.error.message);
+      return;
+    }
+    setChat(data.chat);
+  }
+
+  ...
+
+}
+```
+
+### 4). onMessagesFetch
 Callback function called after fetching messages
 
 Below code is a part of Chat.tsx
@@ -297,7 +358,7 @@ const Chat = (props: ChatProps) => {
 ```
 
 
-### 3). onMessageReceive
+### 5). onMessageReceive
 Callback function called when receive new message.
 
 Below code is a part of Chat.tsx
@@ -356,7 +417,7 @@ const Chat = (props: ChatProps) => {
 
 
 
-### 4). onMessagesUpdate
+### 6). onMessagesUpdate
 Callback function called when messages are updated. mainly used when readReceipt updated.
 
 Below code is a part of Chat.tsx
@@ -391,7 +452,7 @@ const Chat = (props: ChatProps) => {
 ```
 
 
-### 5). onMessageSend
+### 7). onMessageSend
 Callback function called after message is sent
 
 Below code is a part of Chat.tsx
@@ -428,36 +489,7 @@ const Chat = (props: ChatProps) => {
 
 
 
-### 6). onChatRefresh
-Callback function called when chat is refreshed. mainly called when chat member changed
 
-Below code is a part of Chat.tsx
-```typescript
-Chat.tsx
-
-...
-
-const Chat = (props: ChatProps) => {
-  const [chatty, setChatty] = React.useState();
-  const [chat, setChat] = React.useState();
-  const [messages, setMessages] = React.useState(new Map());
-  const [hasNext, setHasNext] = React.useState(true);
-  
-  ...
-
-  const onChatRefresh = (data: ChattyTypes.onChatRefreshResponseType) => {
-    if (data.error) {
-      console.warn('onChatUpdate error', data.error.message);
-      return;
-    }
-  
-    setChat(data);
-  }
-
-  ...
-
-}
-```
 
 
 

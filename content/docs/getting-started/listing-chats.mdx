@@ -4,7 +4,7 @@
 ## 1. How to connect to chatlist socket.
 
 * Should u an instance of ChattyList class to connect to chatlist socket
-* When create ChattyList instance, specify 3 chatlist handlers.
+* When create ChattyList instance, specify 4 chatlist handlers.
 
 Below code is a part of ChatList.tsx
 ```typescript
@@ -24,14 +24,17 @@ const ChatList = (props: ChatListProps) => {
    */
   React.useEffect(() => {
     const chattylist = new ChattyList({
-      group: 'chat-group-name',
+      filter: {
+        group: <GROUP-NAME>,  // to get chats filtered by this group name
+        MemberId: <USER-ID>   // to get chats this MemberId is included
+      },
       onChatListConnect: onChatListConnect, // refer to below handlers section
       onChatListFetch: onChatListFetch,     // refer to below handlers section
-      onChatListUpdate: onChatListUpdate    // refer to below handlers section
+      onChatRefresh: onChatRefresh,         // refer to below handlers section
+      onChatLeave: onChatLeave              // refer to below handlers section
     });
 
     chattylist.connect();
-
     setChatty(chattylist);
 
     // When unmount, disconnect chatlist socket
@@ -188,7 +191,7 @@ const ChatList = (props: ChatListProps) => {
 }
 ```
 
-### 3). onChatListUpdate
+### 3). onChatRefresh
 This is called when need to update a specific chat of ChatList in case of navigating to Chat screen through ChatList.
 
 
@@ -206,9 +209,9 @@ const ChatList = (props: ChatListProps) => {
 
   ...
 
-  const onChatListUpdate = (data: ChattyTypes.ChatListUpdateResponseType) => {
+  const onChatRefresh = (data: ChattyTypes.onChatRefreshResponseType) => {
     if (data.error) {
-      console.warn('onChatListRefresh error', data.error.message);
+      console.warn('onChatRefresh error', data.error.message);
       return;
     }
 
@@ -230,6 +233,38 @@ const ChatList = (props: ChatListProps) => {
 
 }
 ```
+
+### 4). onChatLeave
+This is called when need to leave from a specific chat of ChatList by user action.
+
+
+Below code is a part of ChatList.tsx
+```typescript
+ChatList.tsx
+
+...
+
+const ChatList = (props: ChatListProps) => {
+
+  ...
+
+  const onChatLeave = (data: ChattyTypes.onChatLeaveResponseType) => {
+    if (data.error) {
+      console.warn('onChatLeave error', data.error.message);
+      return;
+    }
+
+    setChats((oldChats) => {
+      oldChats.delete(data.chat?.id);
+      return new Map([...Array.from(oldChats)]);
+    });
+  }
+
+  ...
+
+}
+```
+
 
 
 <NextBlock
