@@ -59,7 +59,7 @@ export default function Header() {
             <Button
               colorScheme="gray"
               size='sm'
-              onClick={() => window.open('https://devdashboard.chatty-cloud.com')}
+              onClick={() => window.open('https://dashboard.chatty-cloud.com')}
             >
               dashboard
             </Button>
