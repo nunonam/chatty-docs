@@ -3,51 +3,52 @@ import React, { useEffect } from 'react'
 import Head from 'next/head'
 
 export function TitleAndMetaTags({ url, pathname, title, type, description, banner, schemaOrgJSONLD }) {
-  useEffect(() => {
-    if ('serviceworker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        for (let registration of registrations) {
-          registration.unregister()
-        }
-      })
-    }
-  })
+  // useEffect(() => {
+  //   if ('serviceworker' in navigator) {
+  //     navigator.serviceWorker.getRegistrations().then((registrations) => {
+  //       for (let registration of registrations) {
+  //         registration.unregister()
+  //       }
+  //     })
+  //   }
+  // })
 
-  useEffect(() => {
-    const docSearchScript = document.getElementById('docsearch')
-    if (!docSearchScript) {
-      const script = document.createElement('script')
-      script.src = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js'
-      script.id = 'docsearch'
-      script.defer = true
-      document.head.appendChild(script)
-      script.onload = () => {
-        if (docSearchCallback) docSearchCallback()
-      }
-    }
-    if (docSearchScript && docSearchCallback) docSearchCallback()
-  })
+  // useEffect(() => {
+  //   const docSearchScript = document.getElementById('docsearch')
+  //   if (!docSearchScript) {
+  //     const script = document.createElement('script')
+  //     script.src = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js'
+  //     script.id = 'docsearch'
+  //     script.defer = true
+  //     document.head.appendChild(script)
+  //     script.onload = () => {
+  //       if (docSearchCallback) docSearchCallback()
+  //     }
+  //   }
+  //   if (docSearchScript && docSearchCallback) docSearchCallback()
+  // })
 
-  function docSearchCallback() {
-    if (typeof docsearch == 'function') {
-      docsearch({ // eslint-disable-line
-        appId: 'BPNL9VRVWI',
-        apiKey: '4e224ba0c25e61356926e32048d5a110',
-        indexName: 'chattycloud-docs',
-        inputSelector: '#searchbox',
-        debug: false,
-        transformData: (hits) => {
-          let newHits = []
-          hits.map((hit) => {
-            if (hit.anchor !== null) {
-              newHits.push(hit)
-            }
-          })
-          return newHits
-        }
-      })
-    }
-  }
+  // for algolia search
+  // function docSearchCallback() {
+  //   if (typeof docsearch == 'function') {
+  //     docsearch({ // eslint-disable-line
+  //       appId: 'BPNL9VRVWI',
+  //       apiKey: '4e224ba0c25e61356926e32048d5a110',
+  //       indexName: 'chattycloud-docs',
+  //       inputSelector: '#searchbox',
+  //       debug: false,
+  //       transformData: (hits) => {
+  //         let newHits = []
+  //         hits.map((hit) => {
+  //           if (hit.anchor !== null) {
+  //             newHits.push(hit)
+  //           }
+  //         })
+  //         return newHits
+  //       }
+  //     })
+  //   }
+  // }
 
   return (
     <Head>

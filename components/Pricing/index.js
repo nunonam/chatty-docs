@@ -39,6 +39,7 @@ export default function Pricing() {
           <ModalBody>
             <TableContainer>
               <Table
+                // variant='striped'
                 size='xs'
               >
                 <Thead h={20}>
@@ -51,28 +52,33 @@ export default function Pricing() {
                 <Tbody>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Price</Td>
-                    <Td>$0</Td>
-                    <Td>$99/month</Td>
+                    <Td>0원</Td>
+                    {/* <Td>$99/month</Td> */}
+                    <Td>정량제(사용량에따라 부과)</Td>
                   </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Messages</Td>
-                    <Td>10K messages</Td>
-                    <Td>Unlimited</Td>
+                    <Td>{'< 1K messages'}</Td>
+                    <Td>무제한</Td>
                   </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>MAU</Td>
                     <Td>-</Td>
-                    <Td>2000 users per month</Td>
+                    <Td>
+                      {/* 2000 users per month */}
+                      5,000원 / 월 100명
+                    </Td>
                   </Tr>
-                  <Tr fontSize={'xs'}>
+                  {/* <Tr fontSize={'xs'}>
                     <Td py={2}>MAU Overage Rate</Td>
                     <Td>-</Td>
                     <Td>$0.03 per user</Td>
-                  </Tr>
+                  </Tr> */}
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Storage Images</Td>
                     <Td>-</Td>
-                    <Td>$0.5 per 1000 images</Td>
+                    <Td>1,000원 / 2,000개 이미지</Td>
+                    {/* <Td>$0.5 per 1000 images</Td> */}
                   </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Private 1-to-1 chat</Td>
@@ -119,6 +125,7 @@ export default function Pricing() {
                     <Td>-</Td>
                     <Td>Email</Td>
                   </Tr>
+
                 </Tbody>
               </Table>
             </TableContainer>
