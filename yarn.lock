@@ -1398,22 +1398,6 @@
   version "1.0.3"
   resolved "https://registry.npmjs.org/@napi-rs/triples/-/triples-1.0.3.tgz"
 
-"@ndhoule/each@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@ndhoule/each/-/each-2.0.1.tgz"
-  dependencies:
-    "@ndhoule/keys" "^2.0.0"
-
-"@ndhoule/keys@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@ndhoule/keys/-/keys-2.0.0.tgz"
-
-"@ndhoule/map@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@ndhoule/map/-/map-2.0.1.tgz"
-  dependencies:
-    "@ndhoule/each" "^2.0.1"
-
 "@next/env@12.0.7":
   version "12.0.7"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-12.0.7.tgz#316f7bd1b6b69f554d2676cfc91a16bc7e32ee79"
@@ -1574,12 +1558,6 @@
   dependencies:
     prop-types "^15.7.2"
     tslib "^2.1.0"
-
-"@segment/snippet@^4.15.3":
-  version "4.15.3"
-  resolved "https://registry.npmjs.org/@segment/snippet/-/snippet-4.15.3.tgz"
-  dependencies:
-    "@ndhoule/map" "^2.0.1"
 
 "@types/hast@^2.0.0":
   version "2.3.4"
