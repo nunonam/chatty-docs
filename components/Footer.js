@@ -18,7 +18,8 @@ export default function Footer() {
             <Text fontSize="xs">대표 : 남형철</Text>
             <Text fontSize="xs">통신판매업 신고번호 : 제2020-서울서대문-1548호</Text>
             <Text fontSize="xs">주소 : 서울특별시 서대문구 신촌로 25, 상록빌딩 2층 219호 (02-6010-6016)</Text>
-            <Text fontSize={'sm'} fontWeight={'extrabold'}>&copy; 2021 REACTLAB Inc.</Text>
+            <Text fontSize={'sm'} fontWeight={'extrabold'}>&copy; 2021 (주)리액트랩</Text>
+            {/* <Text fontSize={'sm'} fontWeight={'extrabold'}>&copy; 2021 REACTLAB Inc.</Text> */}
           </Stack>
         </Stack>
         <HStack>

@@ -1,10 +1,15 @@
 # Listing Chats
 
+- 일반적인 채팅목록 화면을 구현하는 방법에 관한 문서입니다. 
+- cloud와 socket으로 연결되어 동작합니다. 
+- 아래 예제의 code들은 ChatList.tsx 라고 하는 react native 화면의 일부입니다. 
 
-## 1. How to connect to chatlist socket.
 
-* Should u an instance of ChattyList class to connect to chatlist socket
-* When create ChattyList instance, specify 4 chatlist handlers.
+## 1. 소켓에 연결하는 방법
+
+- 소켓에 연결하기 위해서는 ChattyList 클래스의 인스턴스를 사용해야 합니다.
+- ChattyList 클래스의 인스턴스를 생성할때 생성자에 4개의 chatlist handler를 지정해야합니다.
+
 
 Below code is a part of ChatList.tsx
 ```typescript
@@ -52,11 +57,11 @@ const ChatList = (props: ChatListProps) => {
 
 ```
 
-## 2. How to fetch chatlist
+## 2. 채팅목록을 가져오는 방법
 
-- When chatlist is connected successfuly, chatty client sdk fetchs chatlist. So you don't need to call fetchChatList method.
-- At onChatListFetch handler, you can see the chatlist fetched.
-- But if need to fetch chatlist manually, call the methods like as below.
+- 소켓이 연결이 되면, sdk 가 자동으로 채팅목록을 가져옵니다. 따라서 fetchChatList method를 호출할 필요가 없습니다. 
+- onChatListFetch handler 에서 fetch된 목록들을 볼수 있습니다.
+- 만약 fetchChatList 를 직접사용하여 호출하고자 할때는 아래와 같이 사용할 수 있습니다. (예: 채팅목록 더보기 위해 사용하는 경우)
 
 
 ### fetchChatList payloads
@@ -80,7 +85,7 @@ hasNext && chattyInstance.fetchChatList({refresh: false});
 ```
 
 
-## 3. ChatList socket handlers
+## 3. 소켓 handlers
 
 ### 1). onChatListConnect
 This is called when chatlist socket is connected successfuly.
@@ -271,7 +276,7 @@ const ChatList = (props: ChatListProps) => {
   steps={[
     {
       text: 'Push Notifications',
-      link: '/getting-started/push-notifications',
+      link: '/getting-started/push-notifications.ko',
     },
   ]}
 ></NextBlock>
