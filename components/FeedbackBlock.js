@@ -1,5 +1,6 @@
 import { Button, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { analytics } from '../lib/analytics'
 
 export default function FeedbackBlock() {
   const pageURL = typeof window !== 'undefined' ? window.location.href : ''
@@ -20,11 +21,14 @@ export default function FeedbackBlock() {
   }, [pageURL])
 
   const logFeedback = (feedbackDelta) => {
-    window.analytics.track('page-feedback', {
+    // window.analytics.track('page-feedback', {
+    //   feedback: feedbackDelta,
+    //   url: pageURL
+    // })
+    analytics.logEvent('page-feedback', {
       feedback: feedbackDelta,
       url: pageURL
-    })
-
+    });
     sessionStorage.setItem(pageURL, true)
     setFeedbackProvided(true)
   }

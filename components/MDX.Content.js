@@ -38,7 +38,7 @@ export default function MDXContent({ title, subtitle, banner, body, lastUpdatedO
     <Box>
       <TitleBlock title={title} subtitle={subtitle} banner={banner} />
       <MDXRemote {...body} components={components} lazy />
-      <NeedHelpBlock />
+      {/* <NeedHelpBlock /> */}
       <FeedbackBlock />
       <PageInfo lastUpdatedOn={lastUpdatedOn} slug={slug}></PageInfo>
     </Box>

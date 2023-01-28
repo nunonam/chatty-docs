@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Link, HStack, Text } from '@chakra-ui/react'
+import { Localization } from '../common/global'
 
 export default function PageInfo({ lastUpdatedOn, slug }) {
   var lastUpdatedOnDate = new Date()
@@ -16,7 +17,7 @@ export default function PageInfo({ lastUpdatedOn, slug }) {
         Last updated on {new Intl.DateTimeFormat('en-US', options).format(lastUpdatedOnDate)}{' '}
         {lastUpdatedOnDate.getDate()}, {lastUpdatedOnDate.getFullYear()}
       </Text>
-      <Link href={slug === 'README' ? `https://github.com/chattycloud/docs/blob/main/${slug}.mdx` : `https://github.com/chattycloud/docs/blob/main/content/docs/${slug}.mdx`}>
+      <Link href={slug === 'README' ? `https://github.com/chattycloud/docs/blob/main/${slug}.${Localization.lang}.mdx` : `https://github.com/chattycloud/docs/blob/main/content/docs/${slug}.${Localization.lang}.mdx`}>
         <Text fontSize={'sm'} fontWeight={'bold'} color={'gray.500'}>
           Help us improve this page
         </Text>

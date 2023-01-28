@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SearchBar from './Searchbar'
 import Pricing from './Pricing'
+import { Localization } from '../common/global'
 
 export default function Navigation() {
   // const { theme, setTheme } = useTheme()
@@ -45,7 +46,7 @@ export default function Navigation() {
       <Box my={3}>
         <Heading mb={1} size={'sm'}>{category}</Heading>
         {pages.map((page, index) => {
-          const href = `/${categoryID}/${page['route']}`
+          const href = `/${categoryID}/${page['route']}.${Localization.lang}`
 
           return (
             <LinkBox
