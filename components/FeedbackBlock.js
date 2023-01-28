@@ -22,7 +22,7 @@ export default function FeedbackBlock() {
   }, [pageURL])
 
   const logFeedback = (feedbackDelta) => {
-    logEvent(analytics, 'page-feedback', {
+    logEvent(analytics, 'select_item', {
       feedback: feedbackDelta,
       url: pageURL
     });
