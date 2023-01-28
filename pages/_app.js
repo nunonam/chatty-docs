@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
-import Page from '../components/SegmentPageTracker'
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../components/Theme'
-import { ThemeProvider, useTheme } from 'next-themes'
 
 export function App({ Component, pageProps }) {
   const router = useRouter()
-  // const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -59,12 +56,8 @@ export function App({ Component, pageProps }) {
 
   return (
     <ChakraProvider theme={theme}>
-      <Page>
-        <Component {...pageProps} />
-      </Page>
+      <Component {...pageProps} />
     </ChakraProvider>
-    // <ThemeProvider>
-    // </ThemeProvider>
 
   )
 }
