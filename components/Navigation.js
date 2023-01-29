@@ -113,7 +113,7 @@ export default function Navigation() {
           dashboard
         </Button>
         <Pricing />
-        <SearchBar />
+        {/* <SearchBar /> */}
       </Stack>
     </Stack>
   )
