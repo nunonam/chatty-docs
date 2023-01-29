@@ -1,7 +1,6 @@
 import { Button, HStack, Text, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { isSupported, logEvent } from "firebase/analytics";
-import { analytics } from "../lib/analytics";
+import { logEvent } from '../lib/analytics'
 
 export default function FeedbackBlock() {
   const pageURL = typeof window !== 'undefined' ? window.location.href : ''
@@ -22,10 +21,7 @@ export default function FeedbackBlock() {
   }, [pageURL])
 
   const logFeedback = (feedbackDelta) => {
-    isSupported() && logEvent(analytics, 'select_item', {
-      feedback: feedbackDelta,
-      url: pageURL
-    });
+    logEvent(feedbackDelta, pageURL);
     sessionStorage.setItem(pageURL, true)
     setFeedbackProvided(true)
   }
