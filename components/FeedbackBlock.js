@@ -1,6 +1,6 @@
-import { Button, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react'
+import { Button, HStack, Text, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { logEvent } from "firebase/analytics";
+import { isSupported, logEvent } from "firebase/analytics";
 import { analytics } from "../lib/analytics";
 
 export default function FeedbackBlock() {
@@ -22,7 +22,7 @@ export default function FeedbackBlock() {
   }, [pageURL])
 
   const logFeedback = (feedbackDelta) => {
-    logEvent(analytics, 'select_item', {
+    isSupported() && logEvent(analytics, 'select_item', {
       feedback: feedbackDelta,
       url: pageURL
     });
