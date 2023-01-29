@@ -48,9 +48,9 @@ export default function Header() {
           </a>
         </Link>
 
-        <Box display={{ base: 'none', md: 'block' }}>
+        {/* <Box display={{ base: 'none', md: 'block' }}>
           <SearchBar />
-        </Box>
+        </Box> */}
 
 
         <Box display={{ base: 'none', md: 'block' }}>
