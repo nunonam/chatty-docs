@@ -53,8 +53,8 @@ export default function Pricing() {
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Price</Td>
                     <Td>0원</Td>
-                    {/* <Td>$99/month</Td> */}
-                    <Td>정량제(사용량에따라 부과)</Td>
+                    <Td>99,000원 / 월</Td>
+                    {/* <Td>정량제(사용량에따라 부과)</Td> */}
                   </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Messages</Td>
@@ -65,15 +65,16 @@ export default function Pricing() {
                     <Td py={2}>MAU</Td>
                     <Td>-</Td>
                     <Td>
-                      {/* 2000 users per month */}
-                      5,000원 / 월 100명
+                      2,000명 / 월
+                      {/* 5,000원 / 월 100명 */}
                     </Td>
                   </Tr>
-                  {/* <Tr fontSize={'xs'}>
-                    <Td py={2}>MAU Overage Rate</Td>
+                  <Tr fontSize={'xs'}>
+                    <Td py={2}>MAU 초과</Td>
                     <Td>-</Td>
-                    <Td>$0.03 per user</Td>
-                  </Tr> */}
+                    {/* <Td>$0.03 per user</Td> */}
+                    <Td>4,000원 / 월 100명</Td>
+                  </Tr>
                   <Tr fontSize={'xs'}>
                     <Td py={2}>Storage Images</Td>
                     <Td>-</Td>
