@@ -23,9 +23,12 @@ export default function Footer() {
           </Stack>
         </Stack>
         <HStack>
-          <Button variant={'link'} size='xs' onClick={() => window.open('https://app.termly.io/document/privacy-policy/d94c196e-2f71-4137-a3ea-e0f458064757', '_ blank')}>Privacy</Button>
+          <Button variant={'link'} size='xs' onClick={() => window.open('https://plip.kr/html/7614352a-63af-4f20-8527-6f5addf5ed92.html', '_ blank')}>개인정보처리방침</Button>
+          <Button variant={'link'} size='xs' onClick={() => window.open('https://plip.kr/html/2b097db7-2ac0-48a0-9e0f-01970acc8021.html', '_ blank')}>개인정보수집및이용동의서</Button>
+
+          {/* <Button variant={'link'} size='xs' onClick={() => window.open('https://app.termly.io/document/privacy-policy/d94c196e-2f71-4137-a3ea-e0f458064757', '_ blank')}>Privacy</Button>
           <Button variant={'link'} size='xs' onClick={() => window.open('https://app.termly.io/document/terms-of-use-for-saas/fc9e8007-f21e-4d94-ac2e-01848b5ec7fb#agreement', '_ blank')}>Terms</Button>
-          <Button variant={'link'} size='xs' onClick={() => window.open('https://app.termly.io/document/cookie-policy/578b6f0b-18f3-4690-800d-6126e0ff898d', '_ blank')}>Cookie</Button>
+          <Button variant={'link'} size='xs' onClick={() => window.open('https://app.termly.io/document/cookie-policy/578b6f0b-18f3-4690-800d-6126e0ff898d', '_ blank')}>Cookie</Button> */}
         </HStack>
       </HStack>
 
